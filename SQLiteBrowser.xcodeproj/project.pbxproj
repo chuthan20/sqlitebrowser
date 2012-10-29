@@ -14,6 +14,7 @@
 		2A261BCE163CDBFA00B810E8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A261BCD163CDBFA00B810E8 /* Document.m */; };
 		2A261BD1163CDBFA00B810E8 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BCF163CDBFA00B810E8 /* Document.xib */; };
 		2A261BD4163CDBFB00B810E8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BD2163CDBFB00B810E8 /* MainMenu.xib */; };
+		2A261BDB163CDC0900B810E8 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		2A261BCD163CDBFA00B810E8 /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
 		2A261BD0163CDBFA00B810E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Document.xib; sourceTree = "<group>"; };
 		2A261BD3163CDBFB00B810E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A261BDB163CDC0900B810E8 /* libsqlite3.0.dylib in Frameworks */,
 				2A261BBB163CDBFA00B810E8 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,6 +51,7 @@
 		2A261BAB163CDBFA00B810E8 = {
 			isa = PBXGroup;
 			children = (
+				2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */,
 				2A261BC0163CDBFA00B810E8 /* SQLiteBrowser */,
 				2A261BB9163CDBFA00B810E8 /* Frameworks */,
 				2A261BB7163CDBFA00B810E8 /* Products */,
