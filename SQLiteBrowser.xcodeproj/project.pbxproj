@@ -15,6 +15,10 @@
 		2A261BD1163CDBFA00B810E8 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BCF163CDBFA00B810E8 /* Document.xib */; };
 		2A261BD4163CDBFB00B810E8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BD2163CDBFB00B810E8 /* MainMenu.xib */; };
 		2A261BDB163CDC0900B810E8 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */; };
+		F2637549164000070014AD7B /* ATPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F2637548164000070014AD7B /* ATPopupWindow.m */; };
+		F263754D164000C10014AD7B /* PopupTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F263754C164000C10014AD7B /* PopupTableViewController.m */; };
+		F263754F164001480014AD7B /* PopupTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F263754E164001480014AD7B /* PopupTableView.xib */; };
+		F26375551640067E0014AD7B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F26375541640067E0014AD7B /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,12 @@
 		2A261BD0163CDBFA00B810E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Document.xib; sourceTree = "<group>"; };
 		2A261BD3163CDBFB00B810E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		F2637547164000070014AD7B /* ATPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPopupWindow.h; sourceTree = "<group>"; };
+		F2637548164000070014AD7B /* ATPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPopupWindow.m; sourceTree = "<group>"; };
+		F263754B164000C10014AD7B /* PopupTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupTableViewController.h; sourceTree = "<group>"; };
+		F263754C164000C10014AD7B /* PopupTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupTableViewController.m; sourceTree = "<group>"; };
+		F263754E164001480014AD7B /* PopupTableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopupTableView.xib; sourceTree = "<group>"; };
+		F26375541640067E0014AD7B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F26375551640067E0014AD7B /* QuartzCore.framework in Frameworks */,
 				2A261BDB163CDC0900B810E8 /* libsqlite3.0.dylib in Frameworks */,
 				2A261BBB163CDBFA00B810E8 /* Cocoa.framework in Frameworks */,
 			);
@@ -51,6 +62,7 @@
 		2A261BAB163CDBFA00B810E8 = {
 			isa = PBXGroup;
 			children = (
+				F26375541640067E0014AD7B /* QuartzCore.framework */,
 				2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */,
 				2A261BC0163CDBFA00B810E8 /* SQLiteBrowser */,
 				2A261BB9163CDBFA00B810E8 /* Frameworks */,
@@ -88,11 +100,16 @@
 		2A261BC0163CDBFA00B810E8 /* SQLiteBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				F2637547164000070014AD7B /* ATPopupWindow.h */,
+				F2637548164000070014AD7B /* ATPopupWindow.m */,
 				2A261BCC163CDBFA00B810E8 /* Document.h */,
 				2A261BCD163CDBFA00B810E8 /* Document.m */,
 				2A261BCF163CDBFA00B810E8 /* Document.xib */,
 				2A261BD2163CDBFB00B810E8 /* MainMenu.xib */,
 				2A261BC1163CDBFA00B810E8 /* Supporting Files */,
+				F263754B164000C10014AD7B /* PopupTableViewController.h */,
+				F263754C164000C10014AD7B /* PopupTableViewController.m */,
+				F263754E164001480014AD7B /* PopupTableView.xib */,
 			);
 			path = SQLiteBrowser;
 			sourceTree = "<group>";
@@ -164,6 +181,7 @@
 				2A261BCB163CDBFA00B810E8 /* Credits.rtf in Resources */,
 				2A261BD1163CDBFA00B810E8 /* Document.xib in Resources */,
 				2A261BD4163CDBFB00B810E8 /* MainMenu.xib in Resources */,
+				F263754F164001480014AD7B /* PopupTableView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +194,8 @@
 			files = (
 				2A261BC7163CDBFA00B810E8 /* main.m in Sources */,
 				2A261BCE163CDBFA00B810E8 /* Document.m in Sources */,
+				F2637549164000070014AD7B /* ATPopupWindow.m in Sources */,
+				F263754D164000C10014AD7B /* PopupTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +333,7 @@
 				2A261BD9163CDBFB00B810E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

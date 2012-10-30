@@ -8,6 +8,7 @@
 
 #import "Document.h"
 #import "sqlite3.h"
+#import "PopupTableViewController.h"
 
 
 @interface Document ()
@@ -18,6 +19,8 @@
     NSString *databaseFileName;
     
     NSMutableArray *leftOutline;
+    
+    NSString *lastTableToBeClicked;
 }
 
 @end
@@ -103,6 +106,21 @@
     return 0;
 }
 
+- (void)tableViewSelectionDidChange:(NSNotification *)notification
+{
+    NSTableView *tbl = notification.object;
+    if ([tbl isRowSelected:tbl.selectedRow])
+    {
+        
+        
+        
+       NSLog(@"%@", [arrayOfData objectAtIndex:tbl.selectedRow]);
+
+        PopupTableViewController *ptvc = [[PopupTableViewController alloc] init] ; //]WithNibName:@"PopupTableView" bundle:nil];
+        [self.windowForSheet.contentView addSubview:ptvc.view];
+    }
+}
+
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     
     // get an existing cell with the MyView identifier if it exists
@@ -143,6 +161,7 @@
 
 - (IBAction)loadBtnClicked:(id)sender
 {
+    lastTableToBeClicked = @"sqlite_master";
     [self loadAndDisplayTable:[NSString stringWithFormat:@"SELECT rowid,* FROM %@", @"sqlite_master"]];
     [self loadAndDisplayLeftTable];
 }
@@ -424,6 +443,7 @@
     
     if ([parent isEqualToString:@"Tables"])
     {
+        lastTableToBeClicked = item;
         [self loadAndDisplayTable:[NSString stringWithFormat:@"SELECT rowid,* FROM %@  LIMIT 15 OFFSET 0", item]];
     }
 }
