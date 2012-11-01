@@ -21,6 +21,7 @@
     NSMutableArray *leftOutline;
     
     NSString *lastTableToBeClicked;
+    int rowIdOfLastItemClicked;
 }
 
 @end
@@ -100,6 +101,11 @@
 
 
 
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
+{
+    return 40;
+}
+
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if ([tableView isEqualTo:self.mainTable])
         return arrayOfData.count;
@@ -109,15 +115,18 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
 {
     NSTableView *tbl = notification.object;
+    NSLog(@"%@", [arrayOfData objectAtIndex:tbl.selectedRow]);
+
     if ([tbl isRowSelected:tbl.selectedRow])
     {
         
+        rowIdOfLastItemClicked = [[[arrayOfData objectAtIndex:tbl.selectedRow] objectForKey:@"0"] intValue];
         
+        NSLog(@"rowIdOfLastItemClicked = %d", rowIdOfLastItemClicked);
         
-       NSLog(@"%@", [arrayOfData objectAtIndex:tbl.selectedRow]);
-
-        PopupTableViewController *ptvc = [[PopupTableViewController alloc] init] ; //]WithNibName:@"PopupTableView" bundle:nil];
-        [self.windowForSheet.contentView addSubview:ptvc.view];
+//
+//        PopupTableViewController *ptvc = [[PopupTableViewController alloc] init] ; //]WithNibName:@"PopupTableView" bundle:nil];
+//        [self.windowForSheet.contentView addSubview:ptvc.view];
     }
 }
 
@@ -125,7 +134,6 @@
     
     // get an existing cell with the MyView identifier if it exists
     NSTextField *result = [tableView makeViewWithIdentifier:@"MyView" owner:self];
-    [result setEditable:NO];
     
     // There is no existing cell to reuse so we will create a new one
     if (result == nil) {
@@ -133,16 +141,16 @@
         // create the new NSTextField with a frame of the {0,0} with the width of the table
         // note that the height of the frame is not really relevant, the row-height will modify the height
         // the new text field is then returned as an autoreleased object
-        result = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 20)];
+        result = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, tableView.rowHeight)];
         [result setBackgroundColor:[NSColor clearColor]];
         [result setBezeled:NO];
         [result setDrawsBackground:NO];
-        [result setEditable:NO];
-        [result setSelectable:NO];
         // the identifier of the NSTextField instance is set to MyView. This
         // allows it to be re-used
         result.identifier = @"MyView";
     }
+    
+    [result setEditable:YES];
     
     // result is now guaranteed to be valid, either as a re-used cell
     // or as a new cell, so set the stringValue of the cell to the
@@ -150,8 +158,9 @@
     
     if ([tableView isEqualTo:self.mainTable])
     {
-        result.stringValue = [[arrayOfData objectAtIndex:row] objectForKey:tableColumn.identifier];
-        
+        NSString *strValue = [[arrayOfData objectAtIndex:row] objectForKey:tableColumn.identifier];
+        result.stringValue = strValue ? strValue : @"";
+//        [result sizeToFit];
     }
     
     // return the result.
@@ -307,13 +316,21 @@
         NSString *query = tableName;
         if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
         {
-            for(int i=1; i<sqlite3_column_count(statement); i++)
+            for(int i=0; i<sqlite3_column_count(statement); i++)
             {
-                NSLog(@"%@", [NSString stringWithUTF8String:sqlite3_column_name(statement, i)]);
                 NSTableColumn *col1 = [[NSTableColumn alloc] initWithIdentifier:[NSString stringWithFormat:@"%d", i]];
                 
+                sqlite3_column_value(statement, i);
+                const char *name = sqlite3_column_name(statement, i);
+                const char *type = sqlite3_column_decltype(statement, i);
                 
-                [[col1 headerCell] setStringValue:[NSString stringWithUTF8String:sqlite3_column_name(statement, i)]];
+                if (name == NULL)
+                    name = "-";
+                if (type == NULL)
+                    type = "-";
+
+                [[col1 headerCell] setStringValue: [NSString stringWithFormat:@"%@:%@",[NSString stringWithUTF8String:name],[[NSString stringWithUTF8String:type] uppercaseString]]];
+                [[col1 headerCell] setRepresentedObject:[NSString stringWithUTF8String:name]];
                 [self.mainTable addTableColumn:col1];
             }
             
@@ -336,6 +353,78 @@
 
 }
 
+- (void) insert:(NSDictionary *)data intoTable:(NSString *)tblName
+{
+            //    char* errorMessage;
+    sqlite3_stmt    *statement;
+    sqlite3 *fdb;
+    NSString *databasePath = databaseFileName;
+    
+    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
+    
+    const char *dbpath = [databasePath UTF8String];
+    
+    
+    if (sqlite3_open(dbpath, &fdb) == SQLITE_OK)
+    {
+        
+        NSMutableString *string = [NSMutableString stringWithFormat:@"INSERT OR REPLACE INTO %@ (", tblName];
+        NSMutableString *values = [NSMutableString stringWithString:@" VALUES ("];
+        
+        [_mainTable.tableColumns enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSTableColumn *c = obj;
+            NSString *key = [c.headerCell representedObject];
+            NSString *object = [data objectForKey:c.identifier];
+            if (key)
+            {
+                [string appendFormat:@"%@,", key];
+                [values appendFormat:@"'%@',", object];
+            }
+        }];
+        
+        [string replaceCharactersInRange:NSMakeRange(string.length-1, 1) withString:@""];
+        [values replaceCharactersInRange:NSMakeRange(values.length-1, 1) withString:@""];
+        
+        [string appendString:@")"];
+        [values appendString:@")"];
+        
+        [string appendString:values];
+        NSLog(@"%@", string);
+        
+//        NSString *query = @"INSERT OR REPLACE INTO GENERAL_IMAGE_CACHE (NAME, ICON_HASH, OTHER) VALUES (?1, ?2, ?3)";
+
+        const char *insert_stmt = [string UTF8String];
+        sqlite3_prepare_v2(fdb, insert_stmt, -1, &statement, NULL);
+        
+//        sqlite3_bind_text(statement, 1, [name UTF8String], -1, SQLITE_STATIC);
+//        
+//        if (etag)
+//            sqlite3_bind_text(statement, 2, [etag UTF8String], -1, SQLITE_STATIC);
+//        else
+//            sqlite3_bind_text(statement, 2, NULL, -1, SQLITE_STATIC);
+//        
+//        if (other)
+//            sqlite3_bind_text(statement, 3, [other UTF8String], -1, SQLITE_STATIC);
+//        else
+//            sqlite3_bind_text(statement, 3, NULL, -1, SQLITE_STATIC);
+
+//        const char **errMsg;
+//        sqlite3_exec(fdb, insert_stmt, NULL, NULL, &errMsg);
+        
+        if (sqlite3_step(statement) != SQLITE_DONE)
+        {
+            printf("Commit Failed!\n");
+        }
+        else
+        {
+            [arrayOfData addObject:data];
+            [self.mainTable reloadData];
+        }
+        sqlite3_reset(statement);
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(fdb);
+}
 
 
 - (id) getValue:(sqlite3_stmt *)stmt index:(int)ind
@@ -450,6 +539,18 @@
 
 - (IBAction)addBtnClicked:(id)sender {
     
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    
+    [_mainTable.tableColumns enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSTableColumn *c = obj;
+        NSString *key = [c.headerCell representedObject];
+        [dictionary setObject:@" " forKey:key];
+    }];
+    
+    [arrayOfData addObject:dictionary];
+    [_mainTable reloadData];
+    
+//    [self insert:dictionary intoTable:lastTableToBeClicked];
 }
 
 - (IBAction)removeBtnClicked:(id)sender {
