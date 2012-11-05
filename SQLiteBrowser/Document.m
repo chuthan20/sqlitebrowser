@@ -119,8 +119,8 @@
 
     if ([tbl isRowSelected:tbl.selectedRow])
     {
-        
-        rowIdOfLastItemClicked = [[[arrayOfData objectAtIndex:tbl.selectedRow] objectForKey:@"0"] intValue];
+        NSString *ind = [[arrayOfData objectAtIndex:tbl.selectedRow] objectForKey:@"0"] ;
+        rowIdOfLastItemClicked = ind? [ind intValue]:-1;
         
         NSLog(@"rowIdOfLastItemClicked = %d", rowIdOfLastItemClicked);
         
@@ -160,6 +160,9 @@
     {
         NSString *strValue = [[arrayOfData objectAtIndex:row] objectForKey:tableColumn.identifier];
         result.stringValue = strValue ? strValue : @"";
+        
+        [result setToolTip:[tableColumn.headerCell representedObject]];
+        
 //        [result sizeToFit];
     }
     
@@ -538,15 +541,15 @@
 }
 
 - (IBAction)addBtnClicked:(id)sender {
+    NSLog(@"%@", [arrayOfData lastObject]);
     
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    
     [_mainTable.tableColumns enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSTableColumn *c = obj;
         NSString *key = [c.headerCell representedObject];
-        [dictionary setObject:@" " forKey:key];
+        NSLog(@"key = %@", key);
+        [dictionary setObject:[NSNull null] forKey:c.identifier];
     }];
-    
     [arrayOfData addObject:dictionary];
     [_mainTable reloadData];
     
