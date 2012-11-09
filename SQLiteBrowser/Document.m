@@ -197,8 +197,8 @@
 - (void) loadAndDisplayLeftTable
 {
     [leftData removeAllObjects];
-    [leftData addObject:@"sqlite_master"];
     
+    [leftData addObject:@"sqlite_master"];
     sqlite3_stmt    *statement;
     sqlite3 *fdb;
     NSString *databasePath = databaseFileName;
@@ -303,11 +303,6 @@
     
     [arrayOfData removeAllObjects];
     [self.mainTable reloadData];
-    
-    int countSize = [self getCount:tableName];
-    
-    self.pagingStepper.maxValue = countSize;
-    
     sqlite3_stmt    *statement;
     sqlite3 *fdb;
     NSString *databasePath = databaseFileName;
@@ -593,3 +588,31 @@
     sqlite3_close(fdb);
 }
 @end
+
+
+/*
+ 
+ - (void) displayRowsFrom:(int)offset limit:(int)limit
+ {
+ offset *= self.pagingStepper.intValue;
+ [arrayOfData removeAllObjects];
+ [self.mainTable reloadData];
+ 
+ sqlite3_stmt_status(statement, SQLITE_STMTSTATUS_FULLSCAN_STEP, 1);
+ 
+ int count = MIN(offset + limit, sqlite3_column_count(statement));
+ while (sqlite3_step(statement) == SQLITE_ROW)
+ {
+ NSMutableDictionary *data = [NSMutableDictionary dictionary];
+ 
+ for(int i = offset; i < count; i++)
+ {
+ [data setObject:[self getValue:statement index:i] forKey:[NSString stringWithFormat:@"%d", i]];
+ }
+ [arrayOfData addObject:data];
+ }
+ currentOffset = count;
+ [self.mainTable reloadData];
+ }
+
+ */
