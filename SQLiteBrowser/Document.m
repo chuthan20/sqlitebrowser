@@ -8,7 +8,6 @@
 
 #import "Document.h"
 #import "sqlite3.h"
-#import "PopupTableViewController.h"
 
 
 @interface Document ()
@@ -198,8 +197,8 @@
 - (void) loadAndDisplayLeftTable
 {
     [leftData removeAllObjects];
-    
     [leftData addObject:@"sqlite_master"];
+    
     sqlite3_stmt    *statement;
     sqlite3 *fdb;
     NSString *databasePath = databaseFileName;
@@ -304,6 +303,11 @@
     
     [arrayOfData removeAllObjects];
     [self.mainTable reloadData];
+    
+    int countSize = [self getCount:tableName];
+    
+    self.pagingStepper.maxValue = countSize;
+    
     sqlite3_stmt    *statement;
     sqlite3 *fdb;
     NSString *databasePath = databaseFileName;

@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "373156421.592904"
+         timestampString = "374118788.007257"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "146"
-         endingLineNumber = "146"
+         startingLineNumber = "145"
+         endingLineNumber = "145"
          landmarkName = "-tableView:viewForTableColumn:row:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "373505187.98796"
+         timestampString = "374118788.007257"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "269"
-         endingLineNumber = "269"
+         startingLineNumber = "268"
+         endingLineNumber = "268"
          landmarkName = "-getCount:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "373505187.98796"
+         timestampString = "374118788.007257"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "384"
-         endingLineNumber = "384"
+         startingLineNumber = "388"
+         endingLineNumber = "388"
          landmarkName = "-insert:intoTable:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "373505187.98796"
+         timestampString = "374118788.007257"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "367"
-         endingLineNumber = "367"
+         startingLineNumber = "371"
+         endingLineNumber = "371"
          landmarkName = "-insert:intoTable:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "373505187.98796"
+         timestampString = "374118788.007257"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "349"
-         endingLineNumber = "349"
+         startingLineNumber = "353"
+         endingLineNumber = "353"
          landmarkName = "-loadAndDisplayTable:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "373156558.945867"
+         timestampString = "374118788.007257"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "59"
-         endingLineNumber = "59"
+         startingLineNumber = "58"
+         endingLineNumber = "58"
          landmarkName = "-windowControllerDidLoadNib:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "373505187.98796"
+         timestampString = "374118788.007257"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "278"
-         endingLineNumber = "278"
+         startingLineNumber = "277"
+         endingLineNumber = "277"
          landmarkName = "-getCount:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "373505187.98796"
+         timestampString = "374118788.007257"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "317"
-         endingLineNumber = "317"
+         startingLineNumber = "321"
+         endingLineNumber = "321"
          landmarkName = "-loadAndDisplayTable:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "373505187.98796"
+         timestampString = "374118788.007257"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "440"
-         endingLineNumber = "440"
+         startingLineNumber = "444"
+         endingLineNumber = "444"
          landmarkName = "-getValue:index:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "373505187.98796"
+         timestampString = "374118788.007257"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "454"
-         endingLineNumber = "454"
+         startingLineNumber = "458"
+         endingLineNumber = "458"
          landmarkName = "-getValue:index:"
          landmarkType = "5">
       </FileBreakpoint>
