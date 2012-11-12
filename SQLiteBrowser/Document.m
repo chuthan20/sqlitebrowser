@@ -9,12 +9,15 @@
 #import "Document.h"
 #import "sqlite3.h"
 
+<<<<<<< HEAD
 static int kNumOffset = 100;
+=======
+static int kMaxLimit = 100;
+>>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
 
 @interface Document ()
 {
     NSMutableArray *arrayOfData;
-    NSMutableArray *leftData;
     
     NSString *databaseFileName;
     
@@ -22,6 +25,9 @@ static int kNumOffset = 100;
     
     NSString *lastTableToBeClicked;
     int rowIdOfLastItemClicked;
+    
+    
+    NSArray *sideTableTitles;
 }
 
 @end
@@ -39,24 +45,18 @@ static int kNumOffset = 100;
 
 - (NSString *)windowNibName
 {
-    // Override returning the nib file name of the document
-    // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"Document";
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
-    // Add any code here that needs to be executed once the windowController has loaded the document's window.
     
     arrayOfData = [NSMutableArray array];
-    leftData = [NSMutableArray array];
+
     
     leftOutline = [NSMutableArray array];
-    
-//    databaseFileName = nil;
-    
-    
+
     self.pagingStepper.maxValue = 0.f;
     self.pagingStepper.minValue = 0.f;
 
@@ -64,6 +64,8 @@ static int kNumOffset = 100;
     {
         [self loadBtnClicked:nil];
     }
+    
+    sideTableTitles = @[@"Table", @"View", @"Index"] ;
 }
 
 + (BOOL)autosavesInPlace
@@ -73,8 +75,6 @@ static int kNumOffset = 100;
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
-    // Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning nil.
-    // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
     NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
     @throw exception;
     return nil;
@@ -82,24 +82,9 @@ static int kNumOffset = 100;
 
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError
 {
-    NSLog(@"%@", url.path);
     databaseFileName = url.path;
     return YES;
 }
-
-//- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
-//{
-//    NSLog(@"%@", typeName);
-//    
-//    // Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning NO.
-//    // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
-//    // If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
-////    NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
-////    @throw exception;
-//    return YES;
-//}
-
-
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
 {
@@ -112,61 +97,23 @@ static int kNumOffset = 100;
     return 0;
 }
 
-- (void)tableViewSelectionDidChange:(NSNotification *)notification
-{
-    NSTableView *tbl = notification.object;
-    NSLog(@"%@", [arrayOfData objectAtIndex:tbl.selectedRow]);
-
-    if ([tbl isRowSelected:tbl.selectedRow])
-    {
-        NSString *ind = [[arrayOfData objectAtIndex:tbl.selectedRow] objectForKey:@"0"] ;
-        rowIdOfLastItemClicked = ind? [ind intValue]:-1;
-        
-        NSLog(@"rowIdOfLastItemClicked = %d", rowIdOfLastItemClicked);
-        
-//
-//        PopupTableViewController *ptvc = [[PopupTableViewController alloc] init] ; //]WithNibName:@"PopupTableView" bundle:nil];
-//        [self.windowForSheet.contentView addSubview:ptvc.view];
-    }
-}
-
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    
-    // get an existing cell with the MyView identifier if it exists
     NSTextField *result = [tableView makeViewWithIdentifier:@"MyView" owner:self];
-    
-    // There is no existing cell to reuse so we will create a new one
     if (result == nil) {
-        
-        // create the new NSTextField with a frame of the {0,0} with the width of the table
-        // note that the height of the frame is not really relevant, the row-height will modify the height
-        // the new text field is then returned as an autoreleased object
         result = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, tableView.rowHeight)];
         [result setBackgroundColor:[NSColor clearColor]];
         [result setBezeled:NO];
         [result setDrawsBackground:NO];
-        // the identifier of the NSTextField instance is set to MyView. This
-        // allows it to be re-used
         result.identifier = @"MyView";
     }
-    
-    [result setEditable:YES];
-    
-    // result is now guaranteed to be valid, either as a re-used cell
-    // or as a new cell, so set the stringValue of the cell to the
-    // nameArray value at row
+//    [result setEditable:YES];
     
     if ([tableView isEqualTo:self.mainTable])
     {
         NSString *strValue = [[arrayOfData objectAtIndex:row] objectForKey:tableColumn.identifier];
         result.stringValue = strValue ? strValue : @"";
-        
         [result setToolTip:[tableColumn.headerCell representedObject]];
-        
-//        [result sizeToFit];
     }
-    
-    // return the result.
     return result;
     
 }
@@ -174,20 +121,29 @@ static int kNumOffset = 100;
 - (IBAction)loadBtnClicked:(id)sender
 {
     lastTableToBeClicked = @"sqlite_master";
+<<<<<<< HEAD
     [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kNumOffset];
 
+=======
+    [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kMaxLimit];
+>>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
     [self loadAndDisplayLeftTable];
 }
 - (IBAction)executeBtnClicked:(id)sender {
     NSString *stmt = self.stmtField.stringValue;
+<<<<<<< HEAD
     
     
 //    [self loadAndDisplayTable:stmt];
     
+=======
+    [self loadAndDisplayTable:stmt offset:0 limit:1];
+>>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
 }
 
 - (IBAction)pagingStepperClicked:(NSStepper *)sender {
     [self.pagingTextField setIntValue:sender.intValue];
+<<<<<<< HEAD
     
     [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kNumOffset];
 
@@ -197,14 +153,15 @@ static int kNumOffset = 100;
 //        NSLog(@"%@", [leftData objectAtIndex:_leftTableView.selectedRow]);
 //        [self loadAndDisplayTable:[NSString stringWithFormat:@"SELECT rowid,* FROM %@ LIMIT 15 OFFSET %d", [leftData objectAtIndex:_leftTableView.selectedRow], sender.intValue * 15]];
 //    }
+=======
+    [self loadAndDisplayTable:lastTableToBeClicked offset:kMaxLimit*sender.intValue limit:kMaxLimit];
+>>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
 }
 
 
 - (void) loadAndDisplayLeftTable
 {
-    [leftData removeAllObjects];
     
-    [leftData addObject:@"sqlite_master"];
     sqlite3_stmt    *statement;
     sqlite3 *fdb;
     NSString *databasePath = databaseFileName;
@@ -254,8 +211,6 @@ static int kNumOffset = 100;
                     [indices addObject:name];
                 }
                 
-                NSLog(@" %@ %@", name, type);
-                [leftData addObject:name];
                 
             }
             [leftOutline addObject:tbls];
@@ -288,7 +243,6 @@ static int kNumOffset = 100;
             while (sqlite3_step(statement) == SQLITE_ROW)
             {
                 numOfRows = sqlite3_column_int(statement, 0);
-                NSLog(@"%@ = %d", queryString, numOfRows);
             }
             sqlite3_finalize(statement);
         }
@@ -324,13 +278,17 @@ static int kNumOffset = 100;
     int ret = sqlite3_open(dbpath, &fdb);
     if (ret == SQLITE_OK)
     {
+<<<<<<< HEAD
         NSString *query = [NSString stringWithFormat:@"SELECT rowid,* FROM %@", tableName];
+=======
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY rowid LIMIT %d OFFSET %d", tableName, limit, offset];
+        NSLog(@"%@", query);
+>>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
         if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
         {
             for(int i=0; i<sqlite3_column_count(statement); i++)
             {
                 NSTableColumn *col1 = [[NSTableColumn alloc] initWithIdentifier:[NSString stringWithFormat:@"%d", i]];
-                
                 sqlite3_column_value(statement, i);
                 const char *name = sqlite3_column_name(statement, i);
                 const char *type = sqlite3_column_decltype(statement, i);
@@ -340,7 +298,7 @@ static int kNumOffset = 100;
                 if (type == NULL)
                     type = "-";
 
-                [[col1 headerCell] setStringValue: [NSString stringWithFormat:@"%@:%@",[NSString stringWithUTF8String:name],[[NSString stringWithUTF8String:type] uppercaseString]]];
+                [[col1 headerCell] setStringValue: [NSString stringWithFormat:@"%@%@",[NSString stringWithUTF8String:name], @""]];//[[NSString stringWithUTF8String:type] uppercaseString]]];
                 [[col1 headerCell] setRepresentedObject:[NSString stringWithUTF8String:name]];
                 [self.mainTable addTableColumn:col1];
             }
@@ -361,177 +319,34 @@ static int kNumOffset = 100;
     [self.mainTable reloadData];
     
     [self.pagingTextField setIntValue:self.pagingStepper.intValue];
-
 }
-
-- (void) insert:(NSDictionary *)data intoTable:(NSString *)tblName
-{
-            //    char* errorMessage;
-    sqlite3_stmt    *statement;
-    sqlite3 *fdb;
-    NSString *databasePath = databaseFileName;
-    
-    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
-    
-    const char *dbpath = [databasePath UTF8String];
-    
-    
-    if (sqlite3_open(dbpath, &fdb) == SQLITE_OK)
-    {
-        
-        NSMutableString *string = [NSMutableString stringWithFormat:@"INSERT OR REPLACE INTO %@ (", tblName];
-        NSMutableString *values = [NSMutableString stringWithString:@" VALUES ("];
-        
-        [_mainTable.tableColumns enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSTableColumn *c = obj;
-            NSString *key = [c.headerCell representedObject];
-            NSString *object = [data objectForKey:c.identifier];
-            if (key)
-            {
-                [string appendFormat:@"%@,", key];
-                [values appendFormat:@"'%@',", object];
-            }
-        }];
-        
-        [string replaceCharactersInRange:NSMakeRange(string.length-1, 1) withString:@""];
-        [values replaceCharactersInRange:NSMakeRange(values.length-1, 1) withString:@""];
-        
-        [string appendString:@")"];
-        [values appendString:@")"];
-        
-        [string appendString:values];
-        NSLog(@"%@", string);
-        
-//        NSString *query = @"INSERT OR REPLACE INTO GENERAL_IMAGE_CACHE (NAME, ICON_HASH, OTHER) VALUES (?1, ?2, ?3)";
-
-        const char *insert_stmt = [string UTF8String];
-        sqlite3_prepare_v2(fdb, insert_stmt, -1, &statement, NULL);
-        
-//        sqlite3_bind_text(statement, 1, [name UTF8String], -1, SQLITE_STATIC);
-//        
-//        if (etag)
-//            sqlite3_bind_text(statement, 2, [etag UTF8String], -1, SQLITE_STATIC);
-//        else
-//            sqlite3_bind_text(statement, 2, NULL, -1, SQLITE_STATIC);
-//        
-//        if (other)
-//            sqlite3_bind_text(statement, 3, [other UTF8String], -1, SQLITE_STATIC);
-//        else
-//            sqlite3_bind_text(statement, 3, NULL, -1, SQLITE_STATIC);
-
-//        const char **errMsg;
-//        sqlite3_exec(fdb, insert_stmt, NULL, NULL, &errMsg);
-        
-        if (sqlite3_step(statement) != SQLITE_DONE)
-        {
-            printf("Commit Failed!\n");
-        }
-        else
-        {
-            [arrayOfData addObject:data];
-            [self.mainTable reloadData];
-        }
-        sqlite3_reset(statement);
-        sqlite3_finalize(statement);
-    }
-    sqlite3_close(fdb);
-}
-
 
 - (id) getValue:(sqlite3_stmt *)stmt index:(int)ind
 {
-    const char *ctype = sqlite3_column_decltype(stmt, ind);
-    if (ctype == NULL)
-        return @"nil";
-    
-    NSString *type = [[NSString stringWithUTF8String:ctype] lowercaseString];
-    if ([type isEqualToString:@"text"])
-    {
-        const char *cname =  (const char *) sqlite3_column_text(stmt, ind);
-        if (cname == NULL)
-            return @"null";
-        NSString *name = [NSString stringWithUTF8String:cname];
-        return name;
-    }
-    else if ([type isEqualToString:@"integer"])
-    {
-        int num = sqlite3_column_int(stmt, ind);
-        return [NSString stringWithFormat:@"%d", num];
-    }
-    return @"nil";
+    const char *cname =  (const char *) sqlite3_column_text(stmt, ind);
+    if (cname != NULL)
+        return [NSString stringWithUTF8String:cname];
+    return @"NULL";
 }
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
     if(item == nil)  return leftOutline.count;
-    
-    if ([item isEqualToString:@"Tables"])
-    {
-        return [[leftOutline objectAtIndex:0] count];
-    }
-    else if ([item isEqualToString:@"View"])
-    {
-        return [[leftOutline objectAtIndex:1] count];
-    }
-    else if ([item isEqualToString:@"Indices"])
-    {
-        return [[leftOutline objectAtIndex:2] count];
-    }
-    return 0;
+    return [[leftOutline objectAtIndex:[sideTableTitles indexOfObject:item]] count];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
-    if ([item isEqualToString:@"Tables"])
-    {
-        return YES;
-    }
-    else if ([item isEqualToString:@"View"])
-    {
-        return YES;
-    }
-    else if ([item isEqualToString:@"Indices"])
-    {
-        return YES;
-    }
-
-    return NO;
+    return [sideTableTitles containsObject:item];
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
     if (item == nil)
-    {
-        if (index == 0)
-        {
-            return @"Tables";
-        }
-        else if (index == 1)
-        {
-            return @"View";
-        }
-        else if (index == 2)
-        {
-            return @"Indices";
-        }
-    }
+        return [sideTableTitles objectAtIndex:index];
     else
-    {
-        if ([item isEqualToString:@"Tables"])
-        {
-            return [[leftOutline objectAtIndex:0] objectAtIndex:index];
-        }
-        else if ([item isEqualToString:@"View"])
-        {
-            return [[leftOutline objectAtIndex:1] objectAtIndex:index];
-        }
-        else if ([item isEqualToString:@"Indices"])
-        {
-            return [[leftOutline objectAtIndex:2] objectAtIndex:index];
-        }
-    }
-    
-    return (item == nil) ? [leftOutline objectAtIndex:index] : [[leftOutline objectAtIndex:[leftOutline indexOfObject:item]] objectAtIndex:index];
+        return [[leftOutline objectAtIndex:[sideTableTitles indexOfObject:item]] objectAtIndex:index];
 }
 
-- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
+- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
+{
     return (item == nil) ?  @"dddaaa" : item;
 }
 
@@ -541,9 +356,10 @@ static int kNumOffset = 100;
     NSString *item = [ov itemAtRow:ov.selectedRow];
     NSString *parent = [ov parentForItem:item];
     
-    if ([parent isEqualToString:@"Tables"])
+    if ([parent isEqualToString:[sideTableTitles objectAtIndex:0]])
     {
         lastTableToBeClicked = item;
+<<<<<<< HEAD
         [self loadAndDisplayTable: item offset:0 limit:kNumOffset];
     }
 }
@@ -593,35 +409,12 @@ static int kNumOffset = 100;
             [self.mainTable reloadData];
             NSLog(@"SUCCESSFULLY REMOVED");
         }
+=======
+        int totalCount = [self getCount:item];
+        self.pagingStepper.maxValue = 1.0 *(totalCount/kMaxLimit);
+        [self loadAndDisplayTable:item offset:0 limit:kMaxLimit];
+>>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
     }
-    sqlite3_close(fdb);
 }
+
 @end
-
-
-/*
- 
- - (void) displayRowsFrom:(int)offset limit:(int)limit
- {
- offset *= self.pagingStepper.intValue;
- [arrayOfData removeAllObjects];
- [self.mainTable reloadData];
- 
- sqlite3_stmt_status(statement, SQLITE_STMTSTATUS_FULLSCAN_STEP, 1);
- 
- int count = MIN(offset + limit, sqlite3_column_count(statement));
- while (sqlite3_step(statement) == SQLITE_ROW)
- {
- NSMutableDictionary *data = [NSMutableDictionary dictionary];
- 
- for(int i = offset; i < count; i++)
- {
- [data setObject:[self getValue:statement index:i] forKey:[NSString stringWithFormat:@"%d", i]];
- }
- [arrayOfData addObject:data];
- }
- currentOffset = count;
- [self.mainTable reloadData];
- }
-
- */
