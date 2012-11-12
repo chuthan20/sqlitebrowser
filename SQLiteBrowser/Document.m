@@ -9,6 +9,7 @@
 #import "Document.h"
 #import "sqlite3.h"
 
+static int kNumOffset = 100;
 
 @interface Document ()
 {
@@ -173,18 +174,23 @@
 - (IBAction)loadBtnClicked:(id)sender
 {
     lastTableToBeClicked = @"sqlite_master";
-    [self loadAndDisplayTable:[NSString stringWithFormat:@"SELECT rowid,* FROM %@", @"sqlite_master"]];
+    [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kNumOffset];
+
     [self loadAndDisplayLeftTable];
 }
 - (IBAction)executeBtnClicked:(id)sender {
     NSString *stmt = self.stmtField.stringValue;
     
-    [self loadAndDisplayTable:stmt];
+    
+//    [self loadAndDisplayTable:stmt];
     
 }
 
 - (IBAction)pagingStepperClicked:(NSStepper *)sender {
     [self.pagingTextField setIntValue:sender.intValue];
+    
+    [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kNumOffset];
+
     
 //    if ([_leftTableView isRowSelected:_leftTableView.selectedRow])
 //    {
@@ -291,10 +297,11 @@
     return numOfRows;
 }
 
-- (void) loadAndDisplayTable:(NSString *)tableName
+- (void) loadAndDisplayTable:(NSString *)tableName offset:(int)offset limit:(int)limit
 {
     if (!tableName)
         return;
+    
     for (int x= (int)self.mainTable.tableColumns.count-1; x>= 0; x--)
     {
         NSTableColumn *obj = [[self.mainTable tableColumns] objectAtIndex:x];
@@ -305,9 +312,11 @@
     [self.mainTable reloadData];
     sqlite3_stmt    *statement;
     sqlite3 *fdb;
+   
     NSString *databasePath = databaseFileName;
     
     [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
+    
     
     const char *dbpath = [databasePath UTF8String];
     
@@ -315,7 +324,7 @@
     int ret = sqlite3_open(dbpath, &fdb);
     if (ret == SQLITE_OK)
     {
-        NSString *query = tableName;
+        NSString *query = [NSString stringWithFormat:@"SELECT rowid,* FROM %@", tableName];
         if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
         {
             for(int i=0; i<sqlite3_column_count(statement); i++)
@@ -535,7 +544,7 @@
     if ([parent isEqualToString:@"Tables"])
     {
         lastTableToBeClicked = item;
-        [self loadAndDisplayTable:[NSString stringWithFormat:@"SELECT rowid,* FROM %@  LIMIT 15 OFFSET 0", item]];
+        [self loadAndDisplayTable: item offset:0 limit:kNumOffset];
     }
 }
 
