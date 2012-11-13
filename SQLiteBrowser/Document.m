@@ -9,14 +9,10 @@
 #import "Document.h"
 #import "sqlite3.h"
 
-<<<<<<< HEAD
 static int kNumOffset = 100;
-=======
-static int kMaxLimit = 100;
->>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
-
 @interface Document ()
 {
+    NSMutableArray *recentSearches;
     NSMutableArray *arrayOfData;
     
     NSString *databaseFileName;
@@ -28,6 +24,11 @@ static int kMaxLimit = 100;
     
     
     NSArray *sideTableTitles;
+    
+    
+    
+	BOOL					completePosting;
+    BOOL					commandHandling;
 }
 
 @end
@@ -53,8 +54,6 @@ static int kMaxLimit = 100;
     [super windowControllerDidLoadNib:aController];
     
     arrayOfData = [NSMutableArray array];
-
-    
     leftOutline = [NSMutableArray array];
 
     self.pagingStepper.maxValue = 0.f;
@@ -66,6 +65,8 @@ static int kMaxLimit = 100;
     }
     
     sideTableTitles = @[@"Table", @"View", @"Index"] ;
+    recentSearches = [NSMutableArray arrayWithObjects:@"sqlite_master ", @"SELECT ",@"FROM ",@"WHERE ",@"UNION ",@"UPDATE ",@"DELETE ",@"DROP ",@"TABLE ",@"EXPLAIN ",@"SET ",@"COUNT ",@"ORDER BY ",@"LIMIT ",@"OFFSET ",@"rowid ", nil];
+    
 }
 
 + (BOOL)autosavesInPlace
@@ -117,33 +118,108 @@ static int kMaxLimit = 100;
     return result;
     
 }
+- (NSArray *)allKeywords
+{
+    return recentSearches;
+}
+
+- (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words
+ forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int*)index
+{
+    NSMutableArray*	matches = NULL;
+    NSString*		partialString;
+    NSArray*		keywords;
+    unsigned int	i,count;
+    NSString*		string;
+    
+    partialString = [[textView string] substringWithRange:charRange];
+    keywords      = [self allKeywords];
+    count         = recentSearches.count;
+    
+    matches       = [NSMutableArray array];
+    
+        // find any match in our keyword array against what was typed -
+	for (i=0; i< count; i++)
+	{
+        string = [keywords objectAtIndex:i];
+        if ([string rangeOfString:partialString
+						  options:NSAnchoredSearch | NSCaseInsensitiveSearch
+							range:NSMakeRange(0, [string length])].location != NSNotFound)
+		{
+            [matches addObject:string];
+        }
+    }
+    [matches sortUsingSelector:@selector(compare:)];
+	
+	return matches;
+}
+
+    // -------------------------------------------------------------------------------
+    //	controlTextDidChange:
+    //
+    //	The text in NSSearchField has changed, try to attempt type completion.
+    // -------------------------------------------------------------------------------
+- (void)controlTextDidChange:(NSNotification *)obj
+{
+    
+	NSTextView* textView = [[obj userInfo] objectForKey:@"NSFieldEditor"];
+//
+    if (!completePosting && !commandHandling)	// prevent calling "complete" too often
+	{
+        completePosting = YES;
+        [textView complete:nil];
+        completePosting = NO;
+    }
+}
+- (IBAction)searchSelector:(id)sender {
+    NSString *stmt = self.stmtQueryField.stringValue;
+    
+    [recentSearches addObject:stmt];
+    
+    [self loadAndDisplayTableWithQuery:stmt];
+}
+
+    // -------------------------------------------------------------------------------
+    //	control:textView:commandSelector
+    //
+    //	Handle all commend selectors that we can handle here
+    // -------------------------------------------------------------------------------
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
+{
+    
+    BOOL result = NO;
+	
+	if ([textView respondsToSelector:commandSelector])
+	{
+        commandHandling = YES;
+        [textView performSelector:commandSelector withObject:nil];
+        commandHandling = NO;
+		
+		result = YES;
+    }
+	
+    return result;
+}
 
 - (IBAction)loadBtnClicked:(id)sender
 {
     lastTableToBeClicked = @"sqlite_master";
-<<<<<<< HEAD
     [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kNumOffset];
-
-=======
-    [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kMaxLimit];
->>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
     [self loadAndDisplayLeftTable];
 }
+
 - (IBAction)executeBtnClicked:(id)sender {
-    NSString *stmt = self.stmtField.stringValue;
-<<<<<<< HEAD
+//    NSString *stmt = self.stmtField.stringValue;
+    NSString *stmt = self.stmtQueryField.stringValue;
     
+    [recentSearches addObject:stmt];
     
-//    [self loadAndDisplayTable:stmt];
-    
-=======
-    [self loadAndDisplayTable:stmt offset:0 limit:1];
->>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
+    [self loadAndDisplayTableWithQuery:stmt];
+//    [self loadAndDisplayTable:stmt offset:0 limit:1];
 }
 
 - (IBAction)pagingStepperClicked:(NSStepper *)sender {
     [self.pagingTextField setIntValue:sender.intValue];
-<<<<<<< HEAD
     
     [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kNumOffset];
 
@@ -153,9 +229,6 @@ static int kMaxLimit = 100;
 //        NSLog(@"%@", [leftData objectAtIndex:_leftTableView.selectedRow]);
 //        [self loadAndDisplayTable:[NSString stringWithFormat:@"SELECT rowid,* FROM %@ LIMIT 15 OFFSET %d", [leftData objectAtIndex:_leftTableView.selectedRow], sender.intValue * 15]];
 //    }
-=======
-    [self loadAndDisplayTable:lastTableToBeClicked offset:kMaxLimit*sender.intValue limit:kMaxLimit];
->>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
 }
 
 
@@ -278,12 +351,9 @@ static int kMaxLimit = 100;
     int ret = sqlite3_open(dbpath, &fdb);
     if (ret == SQLITE_OK)
     {
-<<<<<<< HEAD
-        NSString *query = [NSString stringWithFormat:@"SELECT rowid,* FROM %@", tableName];
-=======
+//        NSString *query = [NSString stringWithFormat:@"SELECT rowid,* FROM %@", tableName];
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY rowid LIMIT %d OFFSET %d", tableName, limit, offset];
         NSLog(@"%@", query);
->>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
         if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
         {
             for(int i=0; i<sqlite3_column_count(statement); i++)
@@ -319,6 +389,70 @@ static int kMaxLimit = 100;
     [self.mainTable reloadData];
     
     [self.pagingTextField setIntValue:self.pagingStepper.intValue];
+}
+
+
+- (void) loadAndDisplayTableWithQuery:(NSString *)query
+{
+    if (!query)
+        return;
+    
+    for (int x= (int)self.mainTable.tableColumns.count-1; x>= 0; x--)
+    {
+        NSTableColumn *obj = [[self.mainTable tableColumns] objectAtIndex:x];
+        [self.mainTable removeTableColumn:obj];
+    }
+    
+    [arrayOfData removeAllObjects];
+    [self.mainTable reloadData];
+    
+    sqlite3_stmt    *statement;
+    sqlite3 *fdb;
+    NSString *databasePath = databaseFileName;
+    
+    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
+    
+    const char *dbpath = [databasePath UTF8String];
+    int ret = sqlite3_open(dbpath, &fdb);
+    if (ret == SQLITE_OK)
+    {
+//        NSString *query = [NSString stringWithFormat:query];
+        NSLog(@"%@", query);
+        if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
+        {
+            for(int i=0; i<sqlite3_column_count(statement); i++)
+            {
+                NSTableColumn *col1 = [[NSTableColumn alloc] initWithIdentifier:[NSString stringWithFormat:@"%d", i]];
+                sqlite3_column_value(statement, i);
+                const char *name = sqlite3_column_name(statement, i);
+                const char *type = sqlite3_column_decltype(statement, i);
+                
+                if (name == NULL)
+                    name = "-";
+                if (type == NULL)
+                    type = "-";
+                
+                [[col1 headerCell] setStringValue: [NSString stringWithFormat:@"%@%@",[NSString stringWithUTF8String:name], @""]];//[[NSString stringWithUTF8String:type] uppercaseString]]];
+                [[col1 headerCell] setRepresentedObject:[NSString stringWithUTF8String:name]];
+                [self.mainTable addTableColumn:col1];
+            }
+            
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                NSMutableDictionary *data = [NSMutableDictionary dictionary];
+                for(int i=0; i<sqlite3_column_count(statement); i++)
+                {
+                    [data setObject:[self getValue:statement index:i] forKey:[NSString stringWithFormat:@"%d", i]];
+                }
+                [arrayOfData addObject:data];
+            }
+            sqlite3_finalize(statement);
+        }
+    }
+    sqlite3_close(fdb);
+    [self.mainTable reloadData];
+    
+//    [self.pagingTextField setIntValue:self.pagingStepper.intValue];
 }
 
 - (id) getValue:(sqlite3_stmt *)stmt index:(int)ind
@@ -359,7 +493,6 @@ static int kMaxLimit = 100;
     if ([parent isEqualToString:[sideTableTitles objectAtIndex:0]])
     {
         lastTableToBeClicked = item;
-<<<<<<< HEAD
         [self loadAndDisplayTable: item offset:0 limit:kNumOffset];
     }
 }
@@ -380,41 +513,5 @@ static int kMaxLimit = 100;
 //    [self insert:dictionary intoTable:lastTableToBeClicked];
 }
 
-- (IBAction)removeBtnClicked:(id)sender {
-    
-    NSOutlineView *ov = self.leftOutlineView;
-    NSString *item = [ov itemAtRow:ov.selectedRow];
-//    NSString *parent = [ov parentForItem:item];
-    
-    NSLog(@"%@", [arrayOfData objectAtIndex:self.mainTable.selectedRow]);
-    
-    NSMutableDictionary *dict = [arrayOfData objectAtIndex:self.mainTable.selectedRow];
-    int rowNum = [[dict objectForKey:@"0"] intValue];
-
-    sqlite3 *fdb;
-    NSString *databasePath = databaseFileName;
-    
-    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
-    
-    const char *dbpath = [databasePath UTF8String];
-    int ret = sqlite3_open(dbpath, &fdb);
-    if (ret == SQLITE_OK)
-    {
-        char *errMsg;
-
-        NSString *qry = [NSString stringWithFormat:@"DELETE FROM %@ WHERE rowid = %d", item, rowNum];
-        if (sqlite3_exec(fdb, [qry UTF8String], NULL, NULL, &errMsg) == SQLITE_OK)
-        {
-            [arrayOfData removeObject:dict];
-            [self.mainTable reloadData];
-            NSLog(@"SUCCESSFULLY REMOVED");
-        }
-=======
-        int totalCount = [self getCount:item];
-        self.pagingStepper.maxValue = 1.0 *(totalCount/kMaxLimit);
-        [self loadAndDisplayTable:item offset:0 limit:kMaxLimit];
->>>>>>> ba0c7fca09d71ade5e601d2e541feb4af69538cd
-    }
-}
 
 @end

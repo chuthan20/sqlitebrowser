@@ -11,6 +11,7 @@
 @interface Document : NSDocument <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate>
 @property (weak) IBOutlet NSView *docView;
 
+@property (weak) IBOutlet NSSearchField *stmtQueryField;
 
 @property (weak) IBOutlet NSTextField *stmtField;
 @property (weak) IBOutlet NSTextField *pagingTextField;
