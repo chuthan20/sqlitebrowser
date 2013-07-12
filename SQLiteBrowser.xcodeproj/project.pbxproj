@@ -15,6 +15,7 @@
 		2A261BD1163CDBFA00B810E8 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BCF163CDBFA00B810E8 /* Document.xib */; };
 		2A261BD4163CDBFB00B810E8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BD2163CDBFB00B810E8 /* MainMenu.xib */; };
 		2A261BDB163CDC0900B810E8 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */; };
+		2AF6EECF178FA29C009A6F10 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */; };
 		F26375551640067E0014AD7B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F26375541640067E0014AD7B /* QuartzCore.framework */; };
 		F2753413178D8C4800981587 /* Untitled.icns in Resources */ = {isa = PBXBuildFile; fileRef = F2753412178D8C4800981587 /* Untitled.icns */; };
 		F275341C178D8C7300981587 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F275341B178D8C7300981587 /* QuickLook.framework */; };
@@ -78,6 +79,7 @@
 				F275341E178D8C7300981587 /* ApplicationServices.framework in Frameworks */,
 				F2753420178D8C7300981587 /* CoreServices.framework in Frameworks */,
 				F2753422178D8C7300981587 /* CoreFoundation.framework in Frameworks */,
+				2AF6EECF178FA29C009A6F10 /* libsqlite3.0.dylib in Frameworks */,
 				F2AE285F178EF6DB009B822B /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				F2753412178D8C4800981587 /* Untitled.icns */,
-				2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */,
 				2A261BC0163CDBFA00B810E8 /* SQLiteBrowser */,
 				F2753423178D8C7300981587 /* SQQLViewer */,
 				2A261BB9163CDBFA00B810E8 /* Frameworks */,
@@ -109,6 +110,7 @@
 		2A261BB9163CDBFA00B810E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */,
 				F275341B178D8C7300981587 /* QuickLook.framework */,
 				F275341D178D8C7300981587 /* ApplicationServices.framework */,
 				F275341F178D8C7300981587 /* CoreServices.framework */,
