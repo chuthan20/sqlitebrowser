@@ -16,6 +16,16 @@
 		2A261BD4163CDBFB00B810E8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BD2163CDBFB00B810E8 /* MainMenu.xib */; };
 		2A261BDB163CDC0900B810E8 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */; };
 		F26375551640067E0014AD7B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F26375541640067E0014AD7B /* QuartzCore.framework */; };
+		F2753413178D8C4800981587 /* Untitled.icns in Resources */ = {isa = PBXBuildFile; fileRef = F2753412178D8C4800981587 /* Untitled.icns */; };
+		F275341C178D8C7300981587 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F275341B178D8C7300981587 /* QuickLook.framework */; };
+		F275341E178D8C7300981587 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F275341D178D8C7300981587 /* ApplicationServices.framework */; };
+		F2753420178D8C7300981587 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F275341F178D8C7300981587 /* CoreServices.framework */; };
+		F2753422178D8C7300981587 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2753421178D8C7300981587 /* CoreFoundation.framework */; };
+		F2753428178D8C7300981587 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F2753426178D8C7300981587 /* InfoPlist.strings */; };
+		F275342A178D8C7300981587 /* GenerateThumbnailForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = F2753429178D8C7300981587 /* GenerateThumbnailForURL.m */; };
+		F275342C178D8C7300981587 /* GeneratePreviewForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = F275342B178D8C7300981587 /* GeneratePreviewForURL.m */; };
+		F275342E178D8C7300981587 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F275342D178D8C7300981587 /* main.c */; };
+		F2AE285F178EF6DB009B822B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BBA163CDBFA00B810E8 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +45,18 @@
 		2A261BD3163CDBFB00B810E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		F26375541640067E0014AD7B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F2753412178D8C4800981587 /* Untitled.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Untitled.icns; sourceTree = "<group>"; };
+		F275341A178D8C7300981587 /* SQQLViewer.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SQQLViewer.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		F275341B178D8C7300981587 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		F275341D178D8C7300981587 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		F275341F178D8C7300981587 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		F2753421178D8C7300981587 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F2753425178D8C7300981587 /* SQQLViewer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SQQLViewer-Info.plist"; sourceTree = "<group>"; };
+		F2753427178D8C7300981587 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F2753429178D8C7300981587 /* GenerateThumbnailForURL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenerateThumbnailForURL.m; sourceTree = "<group>"; };
+		F275342B178D8C7300981587 /* GeneratePreviewForURL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneratePreviewForURL.m; sourceTree = "<group>"; };
+		F275342D178D8C7300981587 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		F275342F178D8C7300981587 /* SQQLViewer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SQQLViewer-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,15 +70,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F2753415178D8C7300981587 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F275341C178D8C7300981587 /* QuickLook.framework in Frameworks */,
+				F275341E178D8C7300981587 /* ApplicationServices.framework in Frameworks */,
+				F2753420178D8C7300981587 /* CoreServices.framework in Frameworks */,
+				F2753422178D8C7300981587 /* CoreFoundation.framework in Frameworks */,
+				F2AE285F178EF6DB009B822B /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		2A261BAB163CDBFA00B810E8 = {
 			isa = PBXGroup;
 			children = (
-				F26375541640067E0014AD7B /* QuartzCore.framework */,
+				F2753412178D8C4800981587 /* Untitled.icns */,
 				2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */,
 				2A261BC0163CDBFA00B810E8 /* SQLiteBrowser */,
+				F2753423178D8C7300981587 /* SQQLViewer */,
 				2A261BB9163CDBFA00B810E8 /* Frameworks */,
 				2A261BB7163CDBFA00B810E8 /* Products */,
 			);
@@ -66,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				2A261BB6163CDBFA00B810E8 /* SQLiteBrowser.app */,
+				F275341A178D8C7300981587 /* SQQLViewer.qlgenerator */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,7 +109,10 @@
 		2A261BB9163CDBFA00B810E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2A261BBA163CDBFA00B810E8 /* Cocoa.framework */,
+				F275341B178D8C7300981587 /* QuickLook.framework */,
+				F275341D178D8C7300981587 /* ApplicationServices.framework */,
+				F275341F178D8C7300981587 /* CoreServices.framework */,
+				F2753421178D8C7300981587 /* CoreFoundation.framework */,
 				2A261BBC163CDBFA00B810E8 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -82,6 +121,8 @@
 		2A261BBC163CDBFA00B810E8 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F26375541640067E0014AD7B /* QuartzCore.framework */,
+				2A261BBA163CDBFA00B810E8 /* Cocoa.framework */,
 				2A261BBD163CDBFA00B810E8 /* AppKit.framework */,
 				2A261BBE163CDBFA00B810E8 /* CoreData.framework */,
 				2A261BBF163CDBFA00B810E8 /* Foundation.framework */,
@@ -113,7 +154,38 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F2753423178D8C7300981587 /* SQQLViewer */ = {
+			isa = PBXGroup;
+			children = (
+				F2753429178D8C7300981587 /* GenerateThumbnailForURL.m */,
+				F275342B178D8C7300981587 /* GeneratePreviewForURL.m */,
+				F275342D178D8C7300981587 /* main.c */,
+				F2753424178D8C7300981587 /* Supporting Files */,
+			);
+			path = SQQLViewer;
+			sourceTree = "<group>";
+		};
+		F2753424178D8C7300981587 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F2753425178D8C7300981587 /* SQQLViewer-Info.plist */,
+				F2753426178D8C7300981587 /* InfoPlist.strings */,
+				F275342F178D8C7300981587 /* SQQLViewer-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F2753416178D8C7300981587 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		2A261BB5163CDBFA00B810E8 /* SQLiteBrowser */ = {
@@ -132,6 +204,25 @@
 			productName = SQLiteBrowser;
 			productReference = 2A261BB6163CDBFA00B810E8 /* SQLiteBrowser.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F2753419178D8C7300981587 /* SQQLViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2753430178D8C7300981587 /* Build configuration list for PBXNativeTarget "SQQLViewer" */;
+			buildPhases = (
+				F2753414178D8C7300981587 /* Sources */,
+				F2753415178D8C7300981587 /* Frameworks */,
+				F2753416178D8C7300981587 /* Headers */,
+				F2753417178D8C7300981587 /* Resources */,
+				F2753418178D8C7300981587 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SQQLViewer;
+			productName = SQQLViewer;
+			productReference = F275341A178D8C7300981587 /* SQQLViewer.qlgenerator */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -155,6 +246,7 @@
 			projectRoot = "";
 			targets = (
 				2A261BB5163CDBFA00B810E8 /* SQLiteBrowser */,
+				F2753419178D8C7300981587 /* SQQLViewer */,
 			);
 		};
 /* End PBXProject section */
@@ -168,10 +260,29 @@
 				2A261BCB163CDBFA00B810E8 /* Credits.rtf in Resources */,
 				2A261BD1163CDBFA00B810E8 /* Document.xib in Resources */,
 				2A261BD4163CDBFB00B810E8 /* MainMenu.xib in Resources */,
+				F2753413178D8C4800981587 /* Untitled.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2753417178D8C7300981587 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2753428178D8C7300981587 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		F2753418178D8C7300981587 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2A261BB2163CDBFA00B810E8 /* Sources */ = {
@@ -180,6 +291,16 @@
 			files = (
 				2A261BC7163CDBFA00B810E8 /* main.m in Sources */,
 				2A261BCE163CDBFA00B810E8 /* Document.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2753414178D8C7300981587 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F275342A178D8C7300981587 /* GenerateThumbnailForURL.m in Sources */,
+				F275342C178D8C7300981587 /* GeneratePreviewForURL.m in Sources */,
+				F275342E178D8C7300981587 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +339,14 @@
 			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
+		F2753426178D8C7300981587 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2753427178D8C7300981587 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -235,6 +364,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -245,6 +375,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_STYLE = BUNDLE;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -265,10 +396,12 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_STYLE = BUNDLE;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 			};
@@ -298,6 +431,42 @@
 			};
 			name = Release;
 		};
+		F2753431178D8C7300981587 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "SQQLViewer/SQQLViewer-Prefix.pch";
+				INFOPLIST_FILE = "SQQLViewer/SQQLViewer-Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				LIBRARY_STYLE = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = qlgenerator;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		F2753432178D8C7300981587 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "SQQLViewer/SQQLViewer-Prefix.pch";
+				INFOPLIST_FILE = "SQQLViewer/SQQLViewer-Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				LIBRARY_STYLE = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = qlgenerator;
+				ZERO_LINK = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -315,6 +484,15 @@
 			buildConfigurations = (
 				2A261BD8163CDBFB00B810E8 /* Debug */,
 				2A261BD9163CDBFB00B810E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2753430178D8C7300981587 /* Build configuration list for PBXNativeTarget "SQQLViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2753431178D8C7300981587 /* Debug */,
+				F2753432178D8C7300981587 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

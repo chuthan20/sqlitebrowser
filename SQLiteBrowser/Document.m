@@ -7,31 +7,9 @@
 //
 
 #import "Document.h"
-#import "sqlite3.h"
+#include <sqlite3.h>
 
 static int kNumOffset = 100;
-@interface Document ()
-{
-    NSMutableArray *recentSearches;
-    NSMutableArray *arrayOfData;
-    
-    NSString *databaseFileName;
-    
-    NSMutableArray *leftOutline;
-    
-    NSString *lastTableToBeClicked;
-    int rowIdOfLastItemClicked;
-    
-    
-    NSArray *sideTableTitles;
-    
-    
-    
-	BOOL					completePosting;
-    BOOL					commandHandling;
-}
-
-@end
 
 @implementation Document
 
@@ -66,7 +44,7 @@ static int kNumOffset = 100;
     
     sideTableTitles = @[@"Table", @"View", @"Index"] ;
     recentSearches = [NSMutableArray arrayWithObjects:@"sqlite_master ", @"SELECT ",@"FROM ",@"WHERE ",@"UNION ",@"UPDATE ",@"DELETE ",@"DROP ",@"TABLE ",@"EXPLAIN ",@"SET ",@"COUNT ",@"ORDER BY ",@"LIMIT ",@"OFFSET ",@"rowid ", nil];
-    
+    _mainTable.rowHeight = 22;
 }
 
 + (BOOL)autosavesInPlace
@@ -87,10 +65,12 @@ static int kNumOffset = 100;
     return YES;
 }
 
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
-{
-    return 40;
-}
+//- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
+//{
+//    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:13], NSFontAttributeName, nil];
+//    NSSize labelSize = [@"t" sizeWithAttributes:attributes];
+//    return labelSize.height + 5;
+//}
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if ([tableView isEqualTo:self.mainTable])
@@ -98,6 +78,33 @@ static int kNumOffset = 100;
     return 0;
 }
 
+- (CGFloat)tableView:(NSTableView *)tableView sizeToFitWidthOfColumn:(NSInteger)column
+{
+    NSTableColumn *c =  (NSTableColumn *)[tableView.tableColumns objectAtIndex:column];
+    CGFloat maxWidth = 0.0f;
+    
+   NSInteger rows = [tableView numberOfRows];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:13], NSFontAttributeName, nil];
+    for (int i=0; i<rows; i++)
+    {
+        NSString *strValue = [[arrayOfData objectAtIndex:i] objectForKey:c.identifier];
+        NSSize labelSize = [strValue sizeWithAttributes:attributes];
+        maxWidth = MAX(labelSize.width + 10, maxWidth);
+    }
+    return maxWidth;
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    if ([tableView isEqualTo:self.mainTable])
+    {
+        NSString *strValue = [[arrayOfData objectAtIndex:row] objectForKey:tableColumn.identifier];
+        return strValue;
+    }
+    return nil;
+}
+
+/*
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     NSTextField *result = [tableView makeViewWithIdentifier:@"MyView" owner:self];
     if (result == nil) {
@@ -118,6 +125,7 @@ static int kNumOffset = 100;
     return result;
     
 }
+ */
 - (NSArray *)allKeywords
 {
     return recentSearches;
@@ -206,6 +214,7 @@ static int kNumOffset = 100;
     lastTableToBeClicked = @"sqlite_master";
     [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kNumOffset];
     [self loadAndDisplayLeftTable];
+//    [_leftOutlineView expandItem:nil expandChildren:YES];
 }
 
 - (IBAction)executeBtnClicked:(id)sender {
@@ -459,8 +468,16 @@ static int kNumOffset = 100;
 {
     const char *cname =  (const char *) sqlite3_column_text(stmt, ind);
     if (cname != NULL)
-        return [NSString stringWithUTF8String:cname];
-    return @"NULL";
+    {
+        NSString *str = [[NSString alloc] initWithUTF8String:cname];
+        if (str)
+            return str;
+        else
+        {
+            return [NSString stringWithFormat:@"%s", (const char *) sqlite3_column_text(stmt, ind)];
+        }
+    }
+    return @"-";
 }
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {

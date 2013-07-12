@@ -9,6 +9,25 @@
 #import <Cocoa/Cocoa.h>
 
 @interface Document : NSDocument <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate>
+{
+    NSMutableArray *recentSearches;
+    NSMutableArray *arrayOfData;
+    
+    NSString *databaseFileName;
+    
+    NSMutableArray *leftOutline;
+    
+    NSString *lastTableToBeClicked;
+    int rowIdOfLastItemClicked;
+    
+    
+    NSArray *sideTableTitles;
+    
+    
+    
+	BOOL					completePosting;
+    BOOL					commandHandling;
+}
 @property (weak) IBOutlet NSView *docView;
 
 @property (weak) IBOutlet NSSearchField *stmtQueryField;
