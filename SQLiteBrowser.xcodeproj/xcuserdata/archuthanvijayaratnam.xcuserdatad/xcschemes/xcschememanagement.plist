@@ -9,10 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>SQQLViewer.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>2A261BB5163CDBFA00B810E8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F2753419178D8C7300981587</key>
 		<dict>
 			<key>primary</key>
 			<true/>
