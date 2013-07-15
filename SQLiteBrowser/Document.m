@@ -58,7 +58,7 @@ static int kNumOffset = 100;
     @throw exception;
     return nil;
 }
-
+/*
 - (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type
 {
     NSError *error;
@@ -94,6 +94,7 @@ static int kNumOffset = 100;
     
     return [self readFromURL:[NSURL URLWithString:filepath] ofType:typeName error:NULL];
 }
+ */
 
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError
 {

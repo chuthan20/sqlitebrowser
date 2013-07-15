@@ -31,7 +31,35 @@ void CancelPreviewGeneration(void *thisInterface, QLPreviewRequestRef preview);
 OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options)
 {
     // To complete your generator please implement the function GeneratePreviewForURL in GeneratePreviewForURL.c
+
+    NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 500, 500)];
+    NSTextView *tv = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 500, 200)];
+    [tv setString:@"ssssssssssssss"];
     
+    [view addSubview:tv];
+    NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
+    CGContextRef cgContext = QLPreviewRequestCreateContext(preview, CGSizeMake(800, 800), false, NULL);
+    if(cgContext) {
+        NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
+        NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithGraphicsPort:(void *)cgContext flipped:YES];
+        NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
+
+        if ([view canDrawConcurrently])
+        {
+            NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
+            [view displayRectIgnoringOpacity:CGRectZero inContext:context];
+            [view unlockFocus];
+            NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
+        }
+        NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
+    }
+    NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
+    
+//    
+//    NSTableView *table = [[NSTableView alloc] init];
+//    table drawLayer:<#(CALayer *)#> inContext:<#(CGContextRef)#>
+    
+   /*
     Document* document = [[Document alloc] init];
     
     if(![document readFromURL:(__bridge NSURL *)url ofType:(__bridge NSString *)contentTypeUTI]) {
@@ -60,7 +88,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
         
         CFRelease(cgContext);
     }
-
+*/
     
     
     /*
