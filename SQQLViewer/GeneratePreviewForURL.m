@@ -10,92 +10,52 @@
 <style>                                 \
 table                            \
 {                                     \
-    border-collapse:collapse;         \
+border-collapse:collapse;         \
 }                                           \
 table, td, th                                   \
 {                                           \
-    border:1px solid black;                     \
+border:1px solid black;                     \
 }                                                   \
 </style>"
 
-
+NSString *runQuery(NSString *query, sqlite3 *fdb);
 OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options);
 void CancelPreviewGeneration(void *thisInterface, QLPreviewRequestRef preview);
 
 /* -----------------------------------------------------------------------------
-   Generate a preview for file
+ Generate a preview for file
+ 
+ This function's job is to create preview for designated file
+ ----------------------------------------------------------------------------- */
 
-   This function's job is to create preview for designated file
-   ----------------------------------------------------------------------------- */
+NSMutableArray *openAndGetAllTables(sqlite3 *fdb)
+{
+    sqlite3_stmt    *statement;
+    NSMutableArray *tables = [[NSMutableArray alloc] init];
+    NSString *query = @"SELECT tbl_name FROM sqlite_master";
+    if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
+    {
+        int count = sqlite3_column_count(statement);
+        while (sqlite3_step(statement) == SQLITE_ROW)
+        {
+            NSMutableArray *row = [[NSMutableArray alloc] init];
+            for(int i=0; i<count; i++)
+            {
+                row[i] = [[NSString alloc] initWithFormat:@"%s", (char *)sqlite3_column_text(statement, i)];
+            }
+            [tables addObject:row];
+        }
+        sqlite3_finalize(statement);
+    }
+    return tables;
+}
 
 OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options)
 {
     // To complete your generator please implement the function GeneratePreviewForURL in GeneratePreviewForURL.c
-
-    NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 500, 500)];
-    NSTextView *tv = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 500, 200)];
-    [tv setString:@"ssssssssssssss"];
     
-    [view addSubview:tv];
-    NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
-    CGContextRef cgContext = QLPreviewRequestCreateContext(preview, CGSizeMake(800, 800), false, NULL);
-    if(cgContext) {
-        NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
-        NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithGraphicsPort:(void *)cgContext flipped:YES];
-        NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
-
-        if ([view canDrawConcurrently])
-        {
-            NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
-            [view displayRectIgnoringOpacity:CGRectZero inContext:context];
-            [view unlockFocus];
-            NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
-        }
-        NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
-    }
-    NSLog(@"%d %s", __LINE__, __PRETTY_FUNCTION__);
-    
-//    
-//    NSTableView *table = [[NSTableView alloc] init];
-//    table drawLayer:<#(CALayer *)#> inContext:<#(CGContextRef)#>
-    
-   /*
-    Document* document = [[Document alloc] init];
-    
-    if(![document readFromURL:(__bridge NSURL *)url ofType:(__bridge NSString *)contentTypeUTI]) {
-        return noErr;
-    }
-
-    NSLog(@"AAAAAAAAAAAAAA PASSSSSSSSSSSSSSSEDDDDDDDDDDDDDDDDDDD %@", document);
-    
-    
-    CGContextRef cgContext = QLPreviewRequestCreateContext(preview, CGSizeMake(500, 500), false, NULL);
-    if(cgContext) {
-        NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithGraphicsPort:(void *)cgContext flipped:YES];
-        if(context) {
-			//These two lines of code are just good safe programming...
-			[NSGraphicsContext saveGraphicsState];
-			[NSGraphicsContext setCurrentContext:context];
-			
-            [document drawDocumentInContext:context];
-			
-			//This line sets the context back to what it was when we're done
-			[NSGraphicsContext restoreGraphicsState];
-        }
-        
-		// When we are done with our drawing code QLPreviewRequestFlushContext() is called to flush the context
-        QLPreviewRequestFlushContext(preview, cgContext);
-        
-        CFRelease(cgContext);
-    }
-*/
-    
-    
-    /*
     NSURL *nsurl = (__bridge NSURL *)url;
     
-    
-    sqlite3_stmt    *statement;
     sqlite3 *fdb;
     NSString *databasePath = nsurl.path;
     
@@ -103,47 +63,73 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
     
     const char *dbpath = [databasePath UTF8String];
     
-    NSMutableArray *keys = [[NSMutableArray alloc] init];
-    NSMutableArray *data = [[NSMutableArray alloc] init];
-    
     int ret = sqlite3_open(dbpath, &fdb);
     if (ret == SQLITE_OK)
     {
-        NSString *query = @"SELECT tbl_name, type FROM sqlite_master";
-        if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
+        NSMutableArray *tables = openAndGetAllTables(fdb);
+        [tables insertObject:@"sqlite_master" atIndex:0];
+        
+        NSMutableString *html = [[NSMutableString alloc] init];
+        [html appendString:@"<html><head>"CSS_STYLE"</head><body><table>"];
+        for (NSString *table in tables)
         {
-            int count = sqlite3_column_count(statement);
+            NSString *query = runQuery([[NSString alloc] initWithFormat:@"select * from %@ limit 100", table], fdb);
+            [html appendFormat:@"<p><h4>%@</h4><div>", table];
+            [html appendString:query];
+            [html appendString:@"</div></p><br/><br/>"];
+        }
+        
+        [html appendString:@"</body></html>"];
+        sqlite3_close(fdb);
+        
+        CFDictionaryRef properties = (__bridge CFDictionaryRef)@{(NSString *) kQLPreviewPropertyWidthKey: @500, (NSString *)kQLPreviewPropertyWidthKey: @500};
+        QLPreviewRequestSetDataRepresentation(preview,
+                                              (__bridge CFDataRef)[html dataUsingEncoding:NSUTF8StringEncoding],
+                                              kUTTypeHTML,
+                                              properties
+                                              );
+    }
+    
+    return noErr;
+}
+
+NSString *runQuery(NSString *query, sqlite3 *fdb)
+{
+    NSMutableString *html = [[NSMutableString alloc] init];
+    sqlite3_stmt    *statement;
+    NSMutableArray *keys = [[NSMutableArray alloc] init];
+    NSMutableArray *data = [[NSMutableArray alloc] init];
+    
+    //    NSString *query = @"SELECT tbl_name, type FROM sqlite_master";
+    if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
+    {
+        int count = sqlite3_column_count(statement);
+        for(int i=0; i<count; i++)
+        {
+            const char *name = sqlite3_column_name(statement, i);
+            [keys addObject:[[NSString alloc] initWithFormat:@"%s", name]];
+        }
+        
+        while (sqlite3_step(statement) == SQLITE_ROW)
+        {
+            NSMutableArray *row = [[NSMutableArray alloc] init];
             for(int i=0; i<count; i++)
             {
-                const char *name = sqlite3_column_name(statement, i);
-                [keys addObject:[[NSString alloc] initWithFormat:@"%s", name]];
+                row[i] = [[NSString alloc] initWithFormat:@"%s", (char *)sqlite3_column_text(statement, i)];
             }
-            
-            while (sqlite3_step(statement) == SQLITE_ROW)
-            {
-                NSMutableArray *row = [[NSMutableArray alloc] init];
-                for(int i=0; i<count; i++)
-                {
-                    row[i] = [[NSString alloc] initWithFormat:@"%s", (char *)sqlite3_column_text(statement, i)];
-                }
-                [data addObject:row];
-            }
-            sqlite3_finalize(statement);
+            [data addObject:row];
         }
+        sqlite3_finalize(statement);
     }
-    sqlite3_close(fdb);
-
-
-    NSMutableString *html = [[NSMutableString alloc] init];
-    [html appendString:@"<html><head>"CSS_STYLE"</head><body><table>"];
     
+    [html appendString:@"<table>"];
     [html appendString:@"<tr>"];
     for (NSString *str in keys)
     {
         [html appendFormat:@"<th>%@</th>", str];
     }
     [html appendString:@"</tr>"];
-
+    
     
     for (NSArray *row in data)
     {
@@ -154,27 +140,16 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
         }
         [html appendString:@"</tr>"];
     }
-
-    
-    [html appendString:@"</table></body></html>"];
     
     
-
+    [html appendString:@"</table>"];
     
-    CFDictionaryRef properties = (__bridge CFDictionaryRef)[NSDictionary dictionary];
-    QLPreviewRequestSetDataRepresentation(preview,
-                                          (__bridge CFDataRef)[html dataUsingEncoding:NSUTF8StringEncoding],
-                                          kUTTypeHTML,
-                                          properties
-                                          );
-
-     */
-    return noErr;
+    return html;
 }
 
 void CancelPreviewGeneration(void *thisInterface, QLPreviewRequestRef preview)
 {
     printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
+    
     // Implement only if supported
 }
