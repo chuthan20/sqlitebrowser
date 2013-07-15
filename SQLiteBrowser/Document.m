@@ -58,6 +58,43 @@ static int kNumOffset = 100;
     @throw exception;
     return nil;
 }
+/*
+- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type
+{
+    NSError *error;
+    NSLog(@"AAAAAAAAAAA %@", error);
+    return [self readFromData:data ofType:type error:&error];
+}
+
+- (NSString *)uuidString {
+    // Returns a UUID
+    
+    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+    NSString *uuidStr = (__bridge_transfer NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuid);
+    CFRelease(uuid);
+    
+    return uuidStr;
+}
+
+
+- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cache = [paths objectAtIndex:0] ;
+    
+    NSString *filepath = [NSString stringWithFormat:@"%@/%@", cache, [self uuidString]];
+    
+    NSLog(@"BBBBBBBBBB");
+    NSLog(@"AAAAAAAAAAA %@, \r%@", cache, filepath);
+    
+    NSError *error;
+    [data writeToFile:filepath options:NSDataWritingWithoutOverwriting error:&error];
+    
+    NSLog(@"AAAAAAAAAAA %@ %@", cache, error);
+    
+    return [self readFromURL:[NSURL URLWithString:filepath] ofType:typeName error:NULL];
+}
+ */
 
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError
 {
