@@ -8,11 +8,37 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "395152408.388401"
+         timestampString = "395587596.568991"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "138"
-         endingLineNumber = "138"
+         startingLineNumber = "175"
+         endingLineNumber = "175"
+         landmarkName = "-control:textView:completions:forPartialWordRange:indexOfSelectedItem:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SQLiteBrowser/Document.m"
+         timestampString = "395587596.568991"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "134"
+         endingLineNumber = "134"
+         landmarkName = "-tableView:objectValueForTableColumn:row:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SQLiteBrowser/Document.m"
+         timestampString = "395585903.889699"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "65"
+         endingLineNumber = "65"
          landmarkName = "@implementation Document"
          landmarkType = "3">
       </FileBreakpoint>
@@ -21,13 +47,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SQLiteBrowser/Document.m"
-         timestampString = "395152408.388401"
+         timestampString = "395586522.657771"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "97"
-         endingLineNumber = "97"
-         landmarkName = "-tableView:viewForTableColumn:row:"
-         landmarkType = "5">
+         startingLineNumber = "82"
+         endingLineNumber = "82"
+         landmarkName = "@implementation Document"
+         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
