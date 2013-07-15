@@ -3,6 +3,7 @@
 #include <QuickLook/QuickLook.h>
 #import <Cocoa/Cocoa.h>
 #import <sqlite3.h>
+#import "Document.h"
 
 
 #define CSS_STYLE "\
@@ -31,6 +32,38 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 {
     // To complete your generator please implement the function GeneratePreviewForURL in GeneratePreviewForURL.c
     
+    Document* document = [[Document alloc] init];
+    
+    if(![document readFromURL:(__bridge NSURL *)url ofType:(__bridge NSString *)contentTypeUTI]) {
+        return noErr;
+    }
+
+    NSLog(@"AAAAAAAAAAAAAA PASSSSSSSSSSSSSSSEDDDDDDDDDDDDDDDDDDD %@", document);
+    
+    
+    CGContextRef cgContext = QLPreviewRequestCreateContext(preview, CGSizeMake(500, 500), false, NULL);
+    if(cgContext) {
+        NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithGraphicsPort:(void *)cgContext flipped:YES];
+        if(context) {
+			//These two lines of code are just good safe programming...
+			[NSGraphicsContext saveGraphicsState];
+			[NSGraphicsContext setCurrentContext:context];
+			
+            [document drawDocumentInContext:context];
+			
+			//This line sets the context back to what it was when we're done
+			[NSGraphicsContext restoreGraphicsState];
+        }
+        
+		// When we are done with our drawing code QLPreviewRequestFlushContext() is called to flush the context
+        QLPreviewRequestFlushContext(preview, cgContext);
+        
+        CFRelease(cgContext);
+    }
+
+    
+    
+    /*
     NSURL *nsurl = (__bridge NSURL *)url;
     
     
@@ -107,6 +140,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
                                           properties
                                           );
 
+     */
     return noErr;
 }
 

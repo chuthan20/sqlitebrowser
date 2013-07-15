@@ -16,6 +16,10 @@
 		2A261BD4163CDBFB00B810E8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BD2163CDBFB00B810E8 /* MainMenu.xib */; };
 		2A261BDB163CDC0900B810E8 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */; };
 		2AF6EECF178FA29C009A6F10 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */; };
+		F211329C179421A8008633DB /* SQQLViewer.qlgenerator in CopyFiles */ = {isa = PBXBuildFile; fileRef = F275341A178D8C7300981587 /* SQQLViewer.qlgenerator */; };
+		F21132A1179426CF008633DB /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BCF163CDBFA00B810E8 /* Document.xib */; };
+		F21132A2179426D1008633DB /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A261BCD163CDBFA00B810E8 /* Document.m */; };
+		F21132A3179426D5008633DB /* Document.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A261BCC163CDBFA00B810E8 /* Document.h */; };
 		F26375551640067E0014AD7B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F26375541640067E0014AD7B /* QuartzCore.framework */; };
 		F2753413178D8C4800981587 /* Untitled.icns in Resources */ = {isa = PBXBuildFile; fileRef = F2753412178D8C4800981587 /* Untitled.icns */; };
 		F275341C178D8C7300981587 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F275341B178D8C7300981587 /* QuickLook.framework */; };
@@ -28,6 +32,19 @@
 		F275342E178D8C7300981587 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F275342D178D8C7300981587 /* main.c */; };
 		F2AE285F178EF6DB009B822B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BBA163CDBFA00B810E8 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F211329B17942198008633DB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "~/Library/QuickLook";
+			dstSubfolderSpec = 0;
+			files = (
+				F211329C179421A8008633DB /* SQQLViewer.qlgenerator in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2A261BB6163CDBFA00B810E8 /* SQLiteBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SQLiteBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +201,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F21132A3179426D5008633DB /* Document.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +234,8 @@
 				F2753416178D8C7300981587 /* Headers */,
 				F2753417178D8C7300981587 /* Resources */,
 				F2753418178D8C7300981587 /* Rez */,
+				F211329B17942198008633DB /* CopyFiles */,
+				F211329D179421CB008633DB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -271,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2753428178D8C7300981587 /* InfoPlist.strings in Resources */,
+				F21132A1179426CF008633DB /* Document.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +306,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXRezBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F211329D179421CB008633DB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "qlmanage -r";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2A261BB2163CDBFA00B810E8 /* Sources */ = {
@@ -303,6 +340,7 @@
 				F275342A178D8C7300981587 /* GenerateThumbnailForURL.m in Sources */,
 				F275342C178D8C7300981587 /* GeneratePreviewForURL.m in Sources */,
 				F275342E178D8C7300981587 /* main.c in Sources */,
+				F21132A2179426D1008633DB /* Document.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
