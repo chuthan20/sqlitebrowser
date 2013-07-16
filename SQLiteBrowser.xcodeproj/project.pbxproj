@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A0481CB1795595000B6E43A /* untitled.html in Resources */ = {isa = PBXBuildFile; fileRef = 2A0481CA1795595000B6E43A /* untitled.html */; };
 		2A261BBB163CDBFA00B810E8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BBA163CDBFA00B810E8 /* Cocoa.framework */; };
 		2A261BC5163CDBFA00B810E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BC3163CDBFA00B810E8 /* InfoPlist.strings */; };
 		2A261BC7163CDBFA00B810E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A261BC6163CDBFA00B810E8 /* main.m */; };
@@ -47,6 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A0481CA1795595000B6E43A /* untitled.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = untitled.html; sourceTree = "<group>"; };
 		2A261BB6163CDBFA00B810E8 /* SQLiteBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SQLiteBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A261BBA163CDBFA00B810E8 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2A261BBD163CDBFA00B810E8 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -176,6 +178,7 @@
 		F2753423178D8C7300981587 /* SQQLViewer */ = {
 			isa = PBXGroup;
 			children = (
+				2A0481CA1795595000B6E43A /* untitled.html */,
 				F2753429178D8C7300981587 /* GenerateThumbnailForURL.m */,
 				F275342B178D8C7300981587 /* GeneratePreviewForURL.m */,
 				F275342D178D8C7300981587 /* main.c */,
@@ -292,6 +295,7 @@
 			files = (
 				F2753428178D8C7300981587 /* InfoPlist.strings in Resources */,
 				F21132A1179426CF008633DB /* Document.xib in Resources */,
+				2A0481CB1795595000B6E43A /* untitled.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

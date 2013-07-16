@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>DEBUG_SQQLViewer.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>SQLiteBrowser.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
