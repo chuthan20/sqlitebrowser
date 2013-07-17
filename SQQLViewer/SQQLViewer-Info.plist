@@ -85,6 +85,8 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>db</string>
+					<string>sqlite3</string>
+					<string>database</string>
 				</array>
 				<key>public.mime-type</key>
 				<string>application/x-sqlite3</string>

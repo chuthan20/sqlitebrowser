@@ -8,14 +8,14 @@
 
 #define CSS_STYLE "\
 <style>                                 \
-table                            \
-{                                     \
-border-collapse:collapse;         \
-}                                           \
-table, td, th                                   \
-{                                           \
-border:1px solid black;                     \
-}                                                   \
+table{font-family:\"Lucida Sans Unicode\",\"Lucida Grande\",Sans-Serif;font-size:12px;\
+background:#fff;border-collapse:collapse;text-align:left;margin:10px;}\
+table th{font-size:14px;font-weight:normal;color:#eee;background-color:#6678b1;\
+border:1px solid #ccc;padding:4px 8px;}\
+table td{border:1px solid #ccc;color:#669;padding:6px 8px;}\
+table tbody tr:hover td{color:#009;background-color:#ccc;}\
+tr:nth-child(odd){background-color:#ddd;}\
+h4{clear:both;margin:0px;padding:0px 15px;}\
 </style>"
 
 NSString *runQuery(NSString *query, sqlite3 *fdb);
@@ -81,8 +81,6 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
         
         [html appendString:@"</body></html>"];
         sqlite3_close(fdb);
-        
-        CFShow((__bridge CFTypeRef)(html));
         
         CFDictionaryRef properties = (__bridge CFDictionaryRef)@{(NSString *) kQLPreviewPropertyWidthKey: @500, (NSString *)kQLPreviewPropertyWidthKey: @500};
         QLPreviewRequestSetDataRepresentation(preview,

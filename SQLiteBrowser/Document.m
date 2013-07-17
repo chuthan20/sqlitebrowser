@@ -43,7 +43,7 @@ static int kNumOffset = 100;
     }
     
     sideTableTitles = @[@"Table", @"View", @"Index"] ;
-    recentSearches = [NSMutableArray arrayWithObjects:@"sqlite_master ", @"SELECT ",@"FROM ",@"WHERE ",@"UNION ",@"UPDATE ",@"DELETE ",@"DROP ",@"TABLE ",@"EXPLAIN ",@"SET ",@"COUNT ",@"ORDER BY ",@"LIMIT ",@"OFFSET ",@"rowid ", nil];
+    recentSearches = [NSMutableArray arrayWithObjects:@"sqlite_master ", @"select ",@"from ",@"where ",@"union ",@"update ",@"delete ",@"drop ",@"table ",@"explain ",@"set ",@"count ",@"order by ",@"limit ",@"offset ",@"rowid ", nil];
     _mainTable.rowHeight = 22;
 }
 
@@ -102,15 +102,8 @@ static int kNumOffset = 100;
     return YES;
 }
 
-//- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
-//{
-//    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:13], NSFontAttributeName, nil];
-//    NSSize labelSize = [@"t" sizeWithAttributes:attributes];
-//    return labelSize.height + 5;
-//}
-
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    if ([tableView isEqualTo:self.mainTable])
+    if (tableView == self.mainTable)
         return arrayOfData.count;
     return 0;
 }
@@ -231,18 +224,14 @@ static int kNumOffset = 100;
     // -------------------------------------------------------------------------------
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
 {
-    
     BOOL result = NO;
-	
 	if ([textView respondsToSelector:commandSelector])
 	{
         commandHandling = YES;
         [textView performSelector:commandSelector withObject:nil];
         commandHandling = NO;
-		
 		result = YES;
     }
-	
     return result;
 }
 
@@ -251,42 +240,27 @@ static int kNumOffset = 100;
     lastTableToBeClicked = @"sqlite_master";
     [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kNumOffset];
     [self loadAndDisplayLeftTable];
-//    [_leftOutlineView expandItem:nil expandChildren:YES];
 }
 
 - (IBAction)executeBtnClicked:(id)sender {
-//    NSString *stmt = self.stmtField.stringValue;
     NSString *stmt = self.stmtQueryField.stringValue;
-    
     [recentSearches addObject:stmt];
-    
     [self loadAndDisplayTableWithQuery:stmt];
-//    [self loadAndDisplayTable:stmt offset:0 limit:1];
 }
 
 - (IBAction)pagingStepperClicked:(NSStepper *)sender {
     [self.pagingTextField setIntValue:sender.intValue];
-    
     [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kNumOffset];
-
-    
-//    if ([_leftTableView isRowSelected:_leftTableView.selectedRow])
-//    {
-//        NSLog(@"%@", [leftData objectAtIndex:_leftTableView.selectedRow]);
-//        [self loadAndDisplayTable:[NSString stringWithFormat:@"SELECT rowid,* FROM %@ LIMIT 15 OFFSET %d", [leftData objectAtIndex:_leftTableView.selectedRow], sender.intValue * 15]];
-//    }
 }
 
 
 - (void) loadAndDisplayLeftTable
 {
-    
     sqlite3_stmt    *statement;
     sqlite3 *fdb;
     NSString *databasePath = databaseFileName;
     
     [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
-    
     const char *dbpath = [databasePath UTF8String];
     
     
@@ -304,18 +278,10 @@ static int kNumOffset = 100;
             while (sqlite3_step(statement) == SQLITE_ROW)
             {
                 const char *cname =  (const char *) sqlite3_column_text(statement, 0);
-                if (cname == NULL)
-                {
-                    cname = "nil";
-                }
-                NSString *name = [NSString stringWithUTF8String:cname];
+                NSString *name = [NSString stringWithFormat:@"%s", cname];
 
                 const char *ctype =  (const char *) sqlite3_column_text(statement, 1);
-                if (ctype == NULL)
-                {
-                    ctype = "nil";
-                }
-                NSString *type = [[NSString stringWithUTF8String:ctype] lowercaseString];
+                NSString *type = [[NSString stringWithFormat:@"%s", ctype] lowercaseString];
                 
                 if ([type isEqualToString:@"view"])
                 {
@@ -340,7 +306,6 @@ static int kNumOffset = 100;
         }
     }
     sqlite3_close(fdb);
-//    [_leftOutlineView reloadData];
 }
 
 - (int) getCount:(NSString *)queryString
@@ -397,24 +362,17 @@ static int kNumOffset = 100;
     int ret = sqlite3_open(dbpath, &fdb);
     if (ret == SQLITE_OK)
     {
-//        NSString *query = [NSString stringWithFormat:@"SELECT rowid,* FROM %@", tableName];
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY rowid LIMIT %d OFFSET %d", tableName, limit, offset];
         NSLog(@"%@", query);
+        
         if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
         {
-            for(int i=0; i<sqlite3_column_count(statement); i++)
+            int count = sqlite3_column_count(statement);
+            for(int i=0; i<count; i++)
             {
                 NSTableColumn *col1 = [[NSTableColumn alloc] initWithIdentifier:[NSString stringWithFormat:@"%d", i]];
-                sqlite3_column_value(statement, i);
                 const char *name = sqlite3_column_name(statement, i);
-                const char *type = sqlite3_column_decltype(statement, i);
-                
-                if (name == NULL)
-                    name = "-";
-                if (type == NULL)
-                    type = "-";
-
-                [[col1 headerCell] setStringValue: [NSString stringWithFormat:@"%@%@",[NSString stringWithUTF8String:name], @""]];//[[NSString stringWithUTF8String:type] uppercaseString]]];
+                [[col1 headerCell] setStringValue: [NSString stringWithFormat:@"%s", name]];
                 [[col1 headerCell] setRepresentedObject:[NSString stringWithUTF8String:name]];
                 [self.mainTable addTableColumn:col1];
             }
@@ -422,7 +380,7 @@ static int kNumOffset = 100;
             while (sqlite3_step(statement) == SQLITE_ROW)
             {
                 NSMutableDictionary *data = [NSMutableDictionary dictionary];
-                for(int i=0; i<sqlite3_column_count(statement); i++)
+                for(int i=0; i<count; i++)
                 {
                     [data setObject:[self getValue:statement index:i] forKey:[NSString stringWithFormat:@"%d", i]];
                 }
@@ -432,6 +390,8 @@ static int kNumOffset = 100;
         }
     }
     sqlite3_close(fdb);
+    
+    
     [self.mainTable reloadData];
     
     [self.pagingTextField setIntValue:self.pagingStepper.intValue];
@@ -535,7 +495,7 @@ static int kNumOffset = 100;
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {
-    return (item == nil) ?  @"dddaaa" : item;
+    return (item == nil) ?  @"" : item;
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification
@@ -550,22 +510,5 @@ static int kNumOffset = 100;
         [self loadAndDisplayTable: item offset:0 limit:kNumOffset];
     }
 }
-
-- (IBAction)addBtnClicked:(id)sender {
-    NSLog(@"%@", [arrayOfData lastObject]);
-    
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    [_mainTable.tableColumns enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSTableColumn *c = obj;
-        NSString *key = [c.headerCell representedObject];
-        NSLog(@"key = %@", key);
-        [dictionary setObject:[NSNull null] forKey:c.identifier];
-    }];
-    [arrayOfData addObject:dictionary];
-    [_mainTable reloadData];
-    
-//    [self insert:dictionary intoTable:lastTableToBeClicked];
-}
-
 
 @end
