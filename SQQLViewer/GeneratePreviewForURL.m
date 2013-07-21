@@ -5,7 +5,6 @@
 #import <sqlite3.h>
 #import "Document.h"
 
-
 #define CSS_STYLE "\
 <style>                                 \
 table{font-family:\"Lucida Sans Unicode\",\"Lucida Grande\",Sans-Serif;font-size:12px;\
@@ -52,8 +51,6 @@ NSMutableArray *openAndGetAllTables(sqlite3 *fdb)
 
 OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options)
 {
-    // To complete your generator please implement the function GeneratePreviewForURL in GeneratePreviewForURL.c
-    
     NSURL *nsurl = (__bridge NSURL *)url;
     
     sqlite3 *fdb;
