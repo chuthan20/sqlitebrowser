@@ -79,6 +79,8 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
         [html appendString:@"</body></html>"];
         sqlite3_close(fdb);
         
+        
+        
         CFDictionaryRef properties = (__bridge CFDictionaryRef)@{(NSString *) kQLPreviewPropertyWidthKey: @500, (NSString *)kQLPreviewPropertyWidthKey: @500};
         QLPreviewRequestSetDataRepresentation(preview,
                                               (__bridge CFDataRef)[html dataUsingEncoding:NSUTF8StringEncoding],
