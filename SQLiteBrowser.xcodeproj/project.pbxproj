@@ -32,6 +32,7 @@
 		F275342C178D8C7300981587 /* GeneratePreviewForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = F275342B178D8C7300981587 /* GeneratePreviewForURL.m */; };
 		F275342E178D8C7300981587 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F275342D178D8C7300981587 /* main.c */; };
 		F2AE285F178EF6DB009B822B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BBA163CDBFA00B810E8 /* Cocoa.framework */; };
+		F2E553A81808992D002A64B5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AC4655E180654BE003F5B05 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -95,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2E553A81808992D002A64B5 /* WebKit.framework in Frameworks */,
 				F275341C178D8C7300981587 /* QuickLook.framework in Frameworks */,
 				F275341E178D8C7300981587 /* ApplicationServices.framework in Frameworks */,
 				F2753420178D8C7300981587 /* CoreServices.framework in Frameworks */,

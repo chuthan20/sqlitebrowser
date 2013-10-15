@@ -30,9 +30,8 @@
 }
 @property (weak) IBOutlet NSView *docView;
 
-@property (weak) IBOutlet NSSearchField *stmtQueryField;
+@property (strong) IBOutlet NSTextView *stmtQueryField;
 
-@property (weak) IBOutlet NSTextField *stmtField;
 @property (weak) IBOutlet NSTextField *pagingTextField;
 @property (weak) IBOutlet NSStepper *pagingStepper;
 @property (weak) IBOutlet NSOutlineView *leftOutlineView;

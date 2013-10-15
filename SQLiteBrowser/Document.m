@@ -103,6 +103,7 @@ static int kNumOffset = 100;
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     if (tableView == self.mainTable)
         return arrayOfData.count;
     return 0;
@@ -110,6 +111,7 @@ static int kNumOffset = 100;
 
 - (CGFloat)tableView:(NSTableView *)tableView sizeToFitWidthOfColumn:(NSInteger)column
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSTableColumn *c =  (NSTableColumn *)[tableView.tableColumns objectAtIndex:column];
     CGFloat maxWidth = 0.0f;
     
@@ -126,7 +128,8 @@ static int kNumOffset = 100;
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    if ([tableView isEqualTo:self.mainTable])
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+   if ([tableView isEqualTo:self.mainTable])
     {
         NSString *strValue = [[arrayOfData objectAtIndex:row] objectForKey:tableColumn.identifier];
         return strValue;
@@ -134,106 +137,6 @@ static int kNumOffset = 100;
     return nil;
 }
 
-/*
-- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    NSTextField *result = [tableView makeViewWithIdentifier:@"MyView" owner:self];
-    if (result == nil) {
-        result = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, tableView.rowHeight)];
-        [result setBackgroundColor:[NSColor clearColor]];
-        [result setBezeled:NO];
-        [result setDrawsBackground:NO];
-        result.identifier = @"MyView";
-    }
-//    [result setEditable:YES];
-    
-    if ([tableView isEqualTo:self.mainTable])
-    {
-        NSString *strValue = [[arrayOfData objectAtIndex:row] objectForKey:tableColumn.identifier];
-        result.stringValue = strValue ? strValue : @"";
-        [result setToolTip:[tableColumn.headerCell representedObject]];
-    }
-    return result;
-    
-}
- */
-- (NSArray *)allKeywords
-{
-    return recentSearches;
-}
-
-- (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words
- forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int*)index
-{
-    NSMutableArray*	matches = NULL;
-    NSString*		partialString;
-    NSArray*		keywords;
-    unsigned int	i,count;
-    NSString*		string;
-    
-    partialString = [[textView string] substringWithRange:charRange];
-    keywords      = [self allKeywords];
-    count         = recentSearches.count;
-    
-    matches       = [NSMutableArray array];
-    
-        // find any match in our keyword array against what was typed -
-	for (i=0; i< count; i++)
-	{
-        string = [keywords objectAtIndex:i];
-        if ([string rangeOfString:partialString
-						  options:NSAnchoredSearch | NSCaseInsensitiveSearch
-							range:NSMakeRange(0, [string length])].location != NSNotFound)
-		{
-            [matches addObject:string];
-        }
-    }
-    [matches sortUsingSelector:@selector(compare:)];
-	
-	return matches;
-}
-
-    // -------------------------------------------------------------------------------
-    //	controlTextDidChange:
-    //
-    //	The text in NSSearchField has changed, try to attempt type completion.
-    // -------------------------------------------------------------------------------
-- (void)controlTextDidChange:(NSNotification *)obj
-{
-    
-	NSTextView* textView = [[obj userInfo] objectForKey:@"NSFieldEditor"];
-//
-    if (!completePosting && !commandHandling)	// prevent calling "complete" too often
-	{
-        completePosting = YES;
-        [textView complete:nil];
-        completePosting = NO;
-    }
-}
-- (IBAction)searchSelector:(id)sender {
-    NSString *stmt = self.stmtQueryField.stringValue;
-    
-    [recentSearches addObject:stmt];
-    
-    [self loadAndDisplayTableWithQuery:stmt];
-}
-
-    // -------------------------------------------------------------------------------
-    //	control:textView:commandSelector
-    //
-    //	Handle all commend selectors that we can handle here
-    // -------------------------------------------------------------------------------
-- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
-{
-    BOOL result = NO;
-	if ([textView respondsToSelector:commandSelector])
-	{
-        commandHandling = YES;
-        [textView performSelector:commandSelector withObject:nil];
-        commandHandling = NO;
-		result = YES;
-    }
-    return result;
-}
 
 - (IBAction)loadBtnClicked:(id)sender
 {
@@ -243,7 +146,7 @@ static int kNumOffset = 100;
 }
 
 - (IBAction)executeBtnClicked:(id)sender {
-    NSString *stmt = self.stmtQueryField.stringValue;
+    NSString *stmt = self.stmtQueryField.value;
     [recentSearches addObject:stmt];
     [self loadAndDisplayTableWithQuery:stmt];
 }
@@ -332,6 +235,8 @@ static int kNumOffset = 100;
         }
     }
     sqlite3_close(fdb);
+    NSLog(@"%@ = %d", queryString, numOfRows);
+
     return numOfRows;
 }
 
@@ -384,6 +289,7 @@ static int kNumOffset = 100;
                 {
                     [data setObject:[self getValue:statement index:i] forKey:[NSString stringWithFormat:@"%d", i]];
                 }
+                NSLog(@"%@" , data);
                 [arrayOfData addObject:data];
             }
             sqlite3_finalize(statement);
@@ -478,28 +384,39 @@ static int kNumOffset = 100;
 }
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, item);
     if(item == nil)  return leftOutline.count;
     return [[leftOutline objectAtIndex:[sideTableTitles indexOfObject:item]] count];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
+    NSLog(@"%s %@ %@", __PRETTY_FUNCTION__, item, [sideTableTitles containsObject:item]? @"YES":@"NO");
     return [sideTableTitles containsObject:item];
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, item);
     if (item == nil)
         return [sideTableTitles objectAtIndex:index];
     else
+    {
+        NSLog(@"%@" , @"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        NSLog(@"%@" , [[leftOutline objectAtIndex:[sideTableTitles indexOfObject:item]] objectAtIndex:index]);
+        NSLog(@"%@" , @"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
         return [[leftOutline objectAtIndex:[sideTableTitles indexOfObject:item]] objectAtIndex:index];
+    }
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, item);
     return (item == nil) ?  @"" : item;
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSOutlineView *ov = notification.object;
     NSString *item = [ov itemAtRow:ov.selectedRow];
     NSString *parent = [ov parentForItem:item];
@@ -508,6 +425,18 @@ static int kNumOffset = 100;
     {
         lastTableToBeClicked = item;
         [self loadAndDisplayTable: item offset:0 limit:kNumOffset];
+    }
+}
+
+- (IBAction)toolbarItemClicked:(NSToolbarItem *)sender {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, sender.label);
+    if ([@"execute" isEqualToString:[sender.label lowercaseString]])
+    {
+        [self executeBtnClicked:nil];
+    }
+    else if ([@"reset" isEqualToString:[sender.label lowercaseString]])
+    {
+        [self loadBtnClicked:nil];
     }
 }
 

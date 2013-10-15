@@ -4,6 +4,7 @@
 #import <Cocoa/Cocoa.h>
 #import <sqlite3.h>
 #import "Document.h"
+#import <WebKit/WebKit.h>
 
 #define CSS_STYLE "\
 <style>                                 \
@@ -31,7 +32,7 @@ NSMutableArray *openAndGetAllTables(sqlite3 *fdb)
 {
     sqlite3_stmt    *statement;
     NSMutableArray *tables = [[NSMutableArray alloc] init];
-    NSString *query = @"SELECT tbl_name FROM sqlite_master";
+    NSString *query = @"SELECT tbl_name FROM sqlite_master where type = 'table'";
     if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
     {
         int count = sqlite3_column_count(statement);
@@ -70,17 +71,19 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
         [html appendString:@"<html><head>"CSS_STYLE"</head><body><table>"];
         for (NSString *table in tables)
         {
-            NSString *query = runQuery([[NSString alloc] initWithFormat:@"select * from %@ limit 100", table], fdb);
+            NSString *query = runQuery([[NSString alloc] initWithFormat:@"select * from %@ limit 200", table], fdb);
             [html appendFormat:@"<p><h4>%@</h4><div>", table];
             [html appendString:query];
             [html appendString:@"</div></p><br/><br/>"];
         }
         
         [html appendString:@"</body></html>"];
+        NSLog(@"%@" , html);
         sqlite3_close(fdb);
         
-        
-        
+
+
+
         CFDictionaryRef properties = (__bridge CFDictionaryRef)@{(NSString *) kQLPreviewPropertyWidthKey: @500, (NSString *)kQLPreviewPropertyWidthKey: @500};
         QLPreviewRequestSetDataRepresentation(preview,
                                               (__bridge CFDataRef)[html dataUsingEncoding:NSUTF8StringEncoding],
@@ -88,8 +91,45 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
                                               properties
                                               );
     }
-    
+
     return noErr;
+    
+        /*
+        NSSize canvasSize = NSMakeSize(1500, 1500);
+        NSRect theRect = NSMakeRect(0.0, 0.0, canvasSize.width, canvasSize.height);
+        WebView *webView = [[WebView alloc] initWithFrame: NSMakeRect(0, 0, 800, 800)];
+        [[webView mainFrame] loadHTMLString:html baseURL: [NSURL URLWithString:@"http://www.archuthan.com"]];
+        
+        while([webView isLoading]) {
+            CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true);
+        }
+
+        // Preview will be drawn in a vectorized context
+        // Here we create a graphics context to draw the Quick Look Preview in
+        CGContextRef cgContext = QLPreviewRequestCreateContext(preview, *(CGSize *)&canvasSize, false, NULL);
+        if(cgContext) {
+            NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithGraphicsPort:(void *)cgContext flipped:NO];
+            if(context) {
+                //These two lines of code are just good safe programming...
+                [NSGraphicsContext saveGraphicsState];
+                [NSGraphicsContext setCurrentContext:context];
+                
+                [webView displayRectIgnoringOpacity:theRect inContext:context];
+                
+                //            [document drawDocumentInContext:context];
+                
+                //This line sets the context back to what it was when we're done
+                [NSGraphicsContext restoreGraphicsState];
+            }
+            
+            // When we are done with our drawing code QLPreviewRequestFlushContext() is called to flush the context
+            QLPreviewRequestFlushContext(preview, cgContext);
+            
+            CFRelease(cgContext);
+        }
+    }
+    return noErr;
+         */
 }
 
 NSString *runQuery(NSString *query, sqlite3 *fdb)
