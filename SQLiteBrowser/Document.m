@@ -33,10 +33,10 @@ static int kNumOffset = 100;
     
     arrayOfData = [NSMutableArray array];
     leftOutline = [NSMutableArray array];
-
+    
     self.pagingStepper.maxValue = 0.f;
     self.pagingStepper.minValue = 0.f;
-
+    
     if (databaseFileName)
     {
         [self loadBtnClicked:nil];
@@ -58,44 +58,6 @@ static int kNumOffset = 100;
     @throw exception;
     return nil;
 }
-/*
-- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type
-{
-    NSError *error;
-    NSLog(@"AAAAAAAAAAA %@", error);
-    return [self readFromData:data ofType:type error:&error];
-}
-
-- (NSString *)uuidString {
-    // Returns a UUID
-    
-    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
-    NSString *uuidStr = (__bridge_transfer NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuid);
-    CFRelease(uuid);
-    
-    return uuidStr;
-}
-
-
-- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cache = [paths objectAtIndex:0] ;
-    
-    NSString *filepath = [NSString stringWithFormat:@"%@/%@", cache, [self uuidString]];
-    
-    NSLog(@"BBBBBBBBBB");
-    NSLog(@"AAAAAAAAAAA %@, \r%@", cache, filepath);
-    
-    NSError *error;
-    [data writeToFile:filepath options:NSDataWritingWithoutOverwriting error:&error];
-    
-    NSLog(@"AAAAAAAAAAA %@ %@", cache, error);
-    
-    return [self readFromURL:[NSURL URLWithString:filepath] ofType:typeName error:NULL];
-}
- */
-
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError
 {
     databaseFileName = url.path;
@@ -103,7 +65,7 @@ static int kNumOffset = 100;
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     if (tableView == self.mainTable)
         return arrayOfData.count;
     return 0;
@@ -111,11 +73,11 @@ static int kNumOffset = 100;
 
 - (CGFloat)tableView:(NSTableView *)tableView sizeToFitWidthOfColumn:(NSInteger)column
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSTableColumn *c =  (NSTableColumn *)[tableView.tableColumns objectAtIndex:column];
-    CGFloat maxWidth = 0.0f;
+    NSCell *cell = c.headerCell;
+    CGFloat maxWidth = [cell.title sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:13], NSFontAttributeName, nil]].width;
     
-   NSInteger rows = [tableView numberOfRows];
+    NSInteger rows = [tableView numberOfRows];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:13], NSFontAttributeName, nil];
     for (int i=0; i<rows; i++)
     {
@@ -128,8 +90,8 @@ static int kNumOffset = 100;
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-   if ([tableView isEqualTo:self.mainTable])
+    
+    if ([tableView isEqualTo:self.mainTable])
     {
         NSString *strValue = [[arrayOfData objectAtIndex:row] objectForKey:tableColumn.identifier];
         return strValue;
@@ -146,7 +108,7 @@ static int kNumOffset = 100;
 }
 
 - (IBAction)executeBtnClicked:(id)sender {
-    NSString *stmt = self.stmtQueryField.value;
+    NSString *stmt = [[self.stmtQueryField textStorage] string];
     [recentSearches addObject:stmt];
     [self loadAndDisplayTableWithQuery:stmt];
 }
@@ -182,7 +144,7 @@ static int kNumOffset = 100;
             {
                 const char *cname =  (const char *) sqlite3_column_text(statement, 0);
                 NSString *name = [NSString stringWithFormat:@"%s", cname];
-
+                
                 const char *ctype =  (const char *) sqlite3_column_text(statement, 1);
                 NSString *type = [[NSString stringWithFormat:@"%s", ctype] lowercaseString];
                 
@@ -198,8 +160,6 @@ static int kNumOffset = 100;
                 {
                     [indices addObject:name];
                 }
-                
-                
             }
             [leftOutline addObject:tbls];
             [leftOutline addObject:views];
@@ -236,7 +196,7 @@ static int kNumOffset = 100;
     }
     sqlite3_close(fdb);
     NSLog(@"%@ = %d", queryString, numOfRows);
-
+    
     return numOfRows;
 }
 
@@ -255,7 +215,7 @@ static int kNumOffset = 100;
     [self.mainTable reloadData];
     sqlite3_stmt    *statement;
     sqlite3 *fdb;
-   
+    
     NSString *databasePath = databaseFileName;
     
     [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
@@ -289,7 +249,7 @@ static int kNumOffset = 100;
                 {
                     [data setObject:[self getValue:statement index:i] forKey:[NSString stringWithFormat:@"%d", i]];
                 }
-                NSLog(@"%@" , data);
+                
                 [arrayOfData addObject:data];
             }
             sqlite3_finalize(statement);
@@ -328,7 +288,7 @@ static int kNumOffset = 100;
     int ret = sqlite3_open(dbpath, &fdb);
     if (ret == SQLITE_OK)
     {
-//        NSString *query = [NSString stringWithFormat:query];
+        //        NSString *query = [NSString stringWithFormat:query];
         NSLog(@"%@", query);
         if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
         {
@@ -364,7 +324,7 @@ static int kNumOffset = 100;
     sqlite3_close(fdb);
     [self.mainTable reloadData];
     
-//    [self.pagingTextField setIntValue:self.pagingStepper.intValue];
+    //    [self.pagingTextField setIntValue:self.pagingStepper.intValue];
 }
 
 - (id) getValue:(sqlite3_stmt *)stmt index:(int)ind
@@ -384,52 +344,56 @@ static int kNumOffset = 100;
 }
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, item);
+    
     if(item == nil)  return leftOutline.count;
     return [[leftOutline objectAtIndex:[sideTableTitles indexOfObject:item]] count];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
-    NSLog(@"%s %@ %@", __PRETTY_FUNCTION__, item, [sideTableTitles containsObject:item]? @"YES":@"NO");
+    
     return [sideTableTitles containsObject:item];
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, item);
+    
     if (item == nil)
         return [sideTableTitles objectAtIndex:index];
     else
     {
-        NSLog(@"%@" , @"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        NSLog(@"%@" , [[leftOutline objectAtIndex:[sideTableTitles indexOfObject:item]] objectAtIndex:index]);
-        NSLog(@"%@" , @"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
+        
+        
+        
+        
         return [[leftOutline objectAtIndex:[sideTableTitles indexOfObject:item]] objectAtIndex:index];
     }
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, item);
+ NSLog(@"%@", item);
     return (item == nil) ?  @"" : item;
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     NSOutlineView *ov = notification.object;
     NSString *item = [ov itemAtRow:ov.selectedRow];
     NSString *parent = [ov parentForItem:item];
     
-    if ([parent isEqualToString:[sideTableTitles objectAtIndex:0]])
+    if (parent != nil && [parent isEqualToString:[sideTableTitles objectAtIndex:0]])
     {
         lastTableToBeClicked = item;
         [self loadAndDisplayTable: item offset:0 limit:kNumOffset];
     }
+    else if ([@"table" isEqualToString:[item lowercaseString]] || [@"index" isEqualToString:[item lowercaseString]] || [@"view" isEqualToString:[item lowercaseString]])
+    {
+        [self loadAndDisplayTableWithQuery:[NSString stringWithFormat:@"select * from sqlite_master type = '%@'", item]];
+    }
 }
 
-- (IBAction)toolbarItemClicked:(NSToolbarItem *)sender {
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, sender.label);
+- (IBAction)toolbarItemClicked:(NSToolbarItem *)sender
+{
     if ([@"execute" isEqualToString:[sender.label lowercaseString]])
     {
         [self executeBtnClicked:nil];
@@ -439,5 +403,22 @@ static int kNumOffset = 100;
         [self loadBtnClicked:nil];
     }
 }
+
+- (BOOL)textView:(NSTextView *)aTextView doCommandBySelector:(SEL)aSelector
+{
+    
+    if (aSelector == @selector(insertNewline:))
+    {
+        [self executeBtnClicked:nil];
+        return YES;
+    }
+    else if (aSelector == @selector(insertNewlineIgnoringFieldEditor:))
+    {
+        [[aTextView textStorage] appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        return YES;
+    }
+    return NO;
+}
+
 
 @end

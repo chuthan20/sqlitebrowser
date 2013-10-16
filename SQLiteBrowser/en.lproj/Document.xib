@@ -21,7 +21,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="248" y="898" width="788" height="383"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <value key="minSize" type="size" width="94" height="86"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="788" height="383"/>
@@ -30,7 +30,7 @@
                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="100032">
                         <rect key="frame" x="752" y="2" width="19" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <stepperCell key="cell" alignment="left" maxValue="100" valueWraps="YES" id="100035"/>
+                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" valueWraps="YES" id="100035"/>
                         <connections>
                             <action selector="pagingStepperClicked:" target="-2" id="100094"/>
                         </connections>
@@ -38,6 +38,9 @@
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="100033">
                         <rect key="frame" x="675" y="5" width="72" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="72" id="JOl-ec-BOY"/>
+                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="100034">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -47,14 +50,14 @@
                             <outlet property="nextKeyView" destination="100032" id="100359"/>
                         </connections>
                     </textField>
-                    <scrollView autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="100472">
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="100472">
                         <rect key="frame" x="0.0" y="0.0" width="126" height="382"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="Maj-9O-Z62">
                             <rect key="frame" x="1" y="1" width="124" height="380"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" rowSizeStyle="systemDefault" indentationPerLevel="14" outlineTableColumn="100476" id="100473">
+                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" indentationPerLevel="14" outlineTableColumn="100476" id="100473">
                                     <rect key="frame" x="0.0" y="0.0" width="124" height="380"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="0.0"/>
@@ -99,15 +102,514 @@
                             <rect key="frame" x="1" y="1" width="645" height="139"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="uF2-Q0-Mgf">
+                                <textView importsGraphics="NO" findStyle="panel" allowsUndo="YES" fieldEditor="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="uF2-Q0-Mgf">
                                     <rect key="frame" x="0.0" y="0.0" width="645" height="139"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="minSize" width="645" height="139"/>
-                                    <size key="maxSize" width="645" height="10000000"/>
+                                    <size key="maxSize" width="662" height="10000000"/>
                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="minSize" width="645" height="139"/>
-                                    <size key="maxSize" width="645" height="10000000"/>
+                                    <size key="maxSize" width="662" height="10000000"/>
+                                    <allowedInputSourceLocales>
+                                        <string>br</string>
+                                        <string>mr</string>
+                                        <string>bs</string>
+                                        <string>ksf</string>
+                                        <string>ee_TG</string>
+                                        <string>ms</string>
+                                        <string>kam_KE</string>
+                                        <string>mt</string>
+                                        <string>ha</string>
+                                        <string>es_HN</string>
+                                        <string>en_BM</string>
+                                        <string>ml_IN</string>
+                                        <string>ro_MD</string>
+                                        <string>kab_DZ</string>
+                                        <string>he</string>
+                                        <string>es_CO</string>
+                                        <string>my</string>
+                                        <string>bas</string>
+                                        <string>vai_Latn_LR</string>
+                                        <string>es_PA</string>
+                                        <string>az_Latn</string>
+                                        <string>mer</string>
+                                        <string>en_NZ</string>
+                                        <string>xog_UG</string>
+                                        <string>sg</string>
+                                        <string>fr_GP</string>
+                                        <string>sr_Cyrl_BA</string>
+                                        <string>hi</string>
+                                        <string>fil_PH</string>
+                                        <string>lt_LT</string>
+                                        <string>si</string>
+                                        <string>mgh_MZ</string>
+                                        <string>en_MT</string>
+                                        <string>mfe</string>
+                                        <string>luo_KE</string>
+                                        <string>it_CH</string>
+                                        <string>si_LK</string>
+                                        <string>sk</string>
+                                        <string>teo</string>
+                                        <string>uz_Cyrl_UZ</string>
+                                        <string>sl</string>
+                                        <string>rm_CH</string>
+                                        <string>az_Cyrl_AZ</string>
+                                        <string>fr_GQ</string>
+                                        <string>kde</string>
+                                        <string>sn</string>
+                                        <string>cgg_UG</string>
+                                        <string>mas_TZ</string>
+                                        <string>fr_RW</string>
+                                        <string>es_SV</string>
+                                        <string>so</string>
+                                        <string>swc_CD</string>
+                                        <string>en_MU</string>
+                                        <string>sq</string>
+                                        <string>hr</string>
+                                        <string>yav_CM</string>
+                                        <string>br_FR</string>
+                                        <string>sr</string>
+                                        <string>en_PH</string>
+                                        <string>ca</string>
+                                        <string>hu</string>
+                                        <string>mk_MK</string>
+                                        <string>fr_TD</string>
+                                        <string>nb</string>
+                                        <string>sv</string>
+                                        <string>kln_KE</string>
+                                        <string>sw</string>
+                                        <string>nd</string>
+                                        <string>el_GR</string>
+                                        <string>fo_FO</string>
+                                        <string>hy</string>
+                                        <string>ne</string>
+                                        <string>el_CY</string>
+                                        <string>es_CR</string>
+                                        <string>sr_Latn</string>
+                                        <string>pa_Arab_PK</string>
+                                        <string>ar_YE</string>
+                                        <string>seh</string>
+                                        <string>ja_JP</string>
+                                        <string>ur_PK</string>
+                                        <string>pa_Guru</string>
+                                        <string>nl_SX</string>
+                                        <string>gl_ES</string>
+                                        <string>zh_Hant_HK</string>
+                                        <string>ar_EG</string>
+                                        <string>nl</string>
+                                        <string>th_TH</string>
+                                        <string>es_PE</string>
+                                        <string>fr_KM</string>
+                                        <string>ln_CD</string>
+                                        <string>nn</string>
+                                        <string>dua</string>
+                                        <string>kk_Cyrl_KZ</string>
+                                        <string>kea</string>
+                                        <string>lv_LV</string>
+                                        <string>kln</string>
+                                        <string>tzm_Latn</string>
+                                        <string>yo</string>
+                                        <string>gsw_CH</string>
+                                        <string>ha_Latn_GH</string>
+                                        <string>is_IS</string>
+                                        <string>pt_BR</string>
+                                        <string>dua_CM</string>
+                                        <string>cs</string>
+                                        <string>en_PK</string>
+                                        <string>fa_IR</string>
+                                        <string>zh_Hans_SG</string>
+                                        <string>luo</string>
+                                        <string>ta</string>
+                                        <string>fr_TG</string>
+                                        <string>kde_TZ</string>
+                                        <string>mr_IN</string>
+                                        <string>ar_SA</string>
+                                        <string>ka_GE</string>
+                                        <string>mfe_MU</string>
+                                        <string>id</string>
+                                        <string>fr_LU</string>
+                                        <string>de_LU</string>
+                                        <string>ru_MD</string>
+                                        <string>cy</string>
+                                        <string>mgh</string>
+                                        <string>zh_Hans_HK</string>
+                                        <string>te</string>
+                                        <string>bg_BG</string>
+                                        <string>shi_Latn</string>
+                                        <string>ig</string>
+                                        <string>vai</string>
+                                        <string>ses</string>
+                                        <string>ii</string>
+                                        <string>es_BO</string>
+                                        <string>th</string>
+                                        <string>ko_KR</string>
+                                        <string>ti</string>
+                                        <string>it_IT</string>
+                                        <string>shi_Latn_MA</string>
+                                        <string>pt_MZ</string>
+                                        <string>ff_SN</string>
+                                        <string>brx</string>
+                                        <string>haw</string>
+                                        <string>ln_CG</string>
+                                        <string>zh_Hans</string>
+                                        <string>so_KE</string>
+                                        <string>bn_IN</string>
+                                        <string>en_UM</string>
+                                        <string>to</string>
+                                        <string>id_ID</string>
+                                        <string>agq_CM</string>
+                                        <string>uz_Cyrl</string>
+                                        <string>en_GU</string>
+                                        <string>es_EC</string>
+                                        <string>en_US_POSIX</string>
+                                        <string>is</string>
+                                        <string>sr_Latn_BA</string>
+                                        <string>luy</string>
+                                        <string>tr</string>
+                                        <string>en_NA</string>
+                                        <string>it</string>
+                                        <string>pt_AO</string>
+                                        <string>da</string>
+                                        <string>nl_CW</string>
+                                        <string>bo_IN</string>
+                                        <string>vun_TZ</string>
+                                        <string>ar_SD</string>
+                                        <string>uz_Latn_UZ</string>
+                                        <string>az_Latn_AZ</string>
+                                        <string>de</string>
+                                        <string>es_GQ</string>
+                                        <string>fr_FR</string>
+                                        <string>de_DE</string>
+                                        <string>ta_IN</string>
+                                        <string>rof_TZ</string>
+                                        <string>nmg_CM</string>
+                                        <string>ar_LY</string>
+                                        <string>en_BW</string>
+                                        <string>asa</string>
+                                        <string>zh</string>
+                                        <string>ewo_CM</string>
+                                        <string>rn_BI</string>
+                                        <string>fr_NE</string>
+                                        <string>nus_SD</string>
+                                        <string>es_MX</string>
+                                        <string>mua_CM</string>
+                                        <string>bem_ZM</string>
+                                        <string>ha_Latn</string>
+                                        <string>zh_Hans_CN</string>
+                                        <string>bn_BD</string>
+                                        <string>pt_GW</string>
+                                        <string>om</string>
+                                        <string>jmc</string>
+                                        <string>de_AT</string>
+                                        <string>kk_Cyrl</string>
+                                        <string>sw_TZ</string>
+                                        <string>ar_OM</string>
+                                        <string>et_EE</string>
+                                        <string>or</string>
+                                        <string>da_DK</string>
+                                        <string>ro_RO</string>
+                                        <string>zh_Hant</string>
+                                        <string>bm_ML</string>
+                                        <string>ja</string>
+                                        <string>lu_CD</string>
+                                        <string>twq</string>
+                                        <string>fr_CA</string>
+                                        <string>naq</string>
+                                        <string>zu</string>
+                                        <string>en_IE</string>
+                                        <string>ar_MA</string>
+                                        <string>es_GT</string>
+                                        <string>en_GY</string>
+                                        <string>uz_Arab_AF</string>
+                                        <string>en_AS</string>
+                                        <string>bs_BA</string>
+                                        <string>am_ET</string>
+                                        <string>ar_TN</string>
+                                        <string>swc</string>
+                                        <string>ewo</string>
+                                        <string>haw_US</string>
+                                        <string>ar_JO</string>
+                                        <string>fa_AF</string>
+                                        <string>uz_Latn</string>
+                                        <string>en_BZ</string>
+                                        <string>nyn_UG</string>
+                                        <string>ebu_KE</string>
+                                        <string>te_IN</string>
+                                        <string>cy_GB</string>
+                                        <string>uk</string>
+                                        <string>nyn</string>
+                                        <string>en_JM</string>
+                                        <string>dyo_SN</string>
+                                        <string>en_US</string>
+                                        <string>fil</string>
+                                        <string>ar_KW</string>
+                                        <string>af_ZA</string>
+                                        <string>en_CA</string>
+                                        <string>fr_DJ</string>
+                                        <string>ti_ER</string>
+                                        <string>ig_NG</string>
+                                        <string>en_AU</string>
+                                        <string>ur</string>
+                                        <string>fr_MC</string>
+                                        <string>pt_PT</string>
+                                        <string>pa</string>
+                                        <string>es_419</string>
+                                        <string>fr_CD</string>
+                                        <string>en_SG</string>
+                                        <string>bo_CN</string>
+                                        <string>kn_IN</string>
+                                        <string>sr_Cyrl_RS</string>
+                                        <string>lg_UG</string>
+                                        <string>gu_IN</string>
+                                        <string>ee</string>
+                                        <string>nd_ZW</string>
+                                        <string>bem</string>
+                                        <string>uz</string>
+                                        <string>sw_KE</string>
+                                        <string>sq_AL</string>
+                                        <string>hr_HR</string>
+                                        <string>mas_KE</string>
+                                        <string>el</string>
+                                        <string>ti_ET</string>
+                                        <string>es_AR</string>
+                                        <string>pl</string>
+                                        <string>en</string>
+                                        <string>eo</string>
+                                        <string>shi</string>
+                                        <string>kok</string>
+                                        <string>fr_CF</string>
+                                        <string>fr_RE</string>
+                                        <string>mas</string>
+                                        <string>rof</string>
+                                        <string>ru_UA</string>
+                                        <string>yo_NG</string>
+                                        <string>dav_KE</string>
+                                        <string>ksb_TZ</string>
+                                        <string>gv_GB</string>
+                                        <string>pa_Arab</string>
+                                        <string>es</string>
+                                        <string>teo_UG</string>
+                                        <string>ps</string>
+                                        <string>es_PR</string>
+                                        <string>fr_MF</string>
+                                        <string>et</string>
+                                        <string>vai_Vaii_LR</string>
+                                        <string>pt</string>
+                                        <string>eu</string>
+                                        <string>ka</string>
+                                        <string>rwk_TZ</string>
+                                        <string>nb_NO</string>
+                                        <string>fr_CG</string>
+                                        <string>cgg</string>
+                                        <string>zh_Hant_TW</string>
+                                        <string>ses_ML</string>
+                                        <string>lag</string>
+                                        <string>sr_Cyrl_ME</string>
+                                        <string>brx_IN</string>
+                                        <string>en_ZW</string>
+                                        <string>ak_GH</string>
+                                        <string>vi_VN</string>
+                                        <string>sv_FI</string>
+                                        <string>to_TO</string>
+                                        <string>fr_MG</string>
+                                        <string>fr_GA</string>
+                                        <string>fr_CH</string>
+                                        <string>de_CH</string>
+                                        <string>es_US</string>
+                                        <string>ki</string>
+                                        <string>my_MM</string>
+                                        <string>twq_NE</string>
+                                        <string>vi</string>
+                                        <string>ar_QA</string>
+                                        <string>ga_IE</string>
+                                        <string>rwk</string>
+                                        <string>bez</string>
+                                        <string>ee_GH</string>
+                                        <string>fr_YT</string>
+                                        <string>kk</string>
+                                        <string>as_IN</string>
+                                        <string>ca_ES</string>
+                                        <string>kl</string>
+                                        <string>fr_SN</string>
+                                        <string>ne_IN</string>
+                                        <string>km</string>
+                                        <string>ms_BN</string>
+                                        <string>ar_LB</string>
+                                        <string>kn</string>
+                                        <string>ta_LK</string>
+                                        <string>ur_IN</string>
+                                        <string>fr_CI</string>
+                                        <string>ko</string>
+                                        <string>ha_Latn_NG</string>
+                                        <string>sg_CF</string>
+                                        <string>om_ET</string>
+                                        <string>zh_Hant_MO</string>
+                                        <string>uk_UA</string>
+                                        <string>fa</string>
+                                        <string>mt_MT</string>
+                                        <string>ki_KE</string>
+                                        <string>luy_KE</string>
+                                        <string>kw</string>
+                                        <string>pa_Guru_IN</string>
+                                        <string>en_IN</string>
+                                        <string>kab</string>
+                                        <string>ar_IQ</string>
+                                        <string>vai_Vaii</string>
+                                        <string>ff</string>
+                                        <string>en_TT</string>
+                                        <string>bez_TZ</string>
+                                        <string>es_NI</string>
+                                        <string>ar_001</string>
+                                        <string>nl_AW</string>
+                                        <string>uz_Arab</string>
+                                        <string>ne_NP</string>
+                                        <string>fi</string>
+                                        <string>en_BB</string>
+                                        <string>khq</string>
+                                        <string>gsw</string>
+                                        <string>zh_Hans_MO</string>
+                                        <string>en_MH</string>
+                                        <string>hu_HU</string>
+                                        <string>en_GB</string>
+                                        <string>fr_BE</string>
+                                        <string>de_BE</string>
+                                        <string>sbp_TZ</string>
+                                        <string>saq</string>
+                                        <string>be_BY</string>
+                                        <string>sl_SI</string>
+                                        <string>sr_Latn_RS</string>
+                                        <string>fo</string>
+                                        <string>fr</string>
+                                        <string>xog</string>
+                                        <string>fr_BF</string>
+                                        <string>tzm</string>
+                                        <string>sk_SK</string>
+                                        <string>fr_ML</string>
+                                        <string>he_IL</string>
+                                        <string>ha_Latn_NE</string>
+                                        <string>ru_RU</string>
+                                        <string>fr_GF</string>
+                                        <string>fr_CM</string>
+                                        <string>ksf_CM</string>
+                                        <string>teo_KE</string>
+                                        <string>seh_MZ</string>
+                                        <string>kl_GL</string>
+                                        <string>bas_CM</string>
+                                        <string>fi_FI</string>
+                                        <string>kam</string>
+                                        <string>es_ES</string>
+                                        <string>af</string>
+                                        <string>asa_TZ</string>
+                                        <string>cs_CZ</string>
+                                        <string>tr_TR</string>
+                                        <string>es_PY</string>
+                                        <string>tzm_Latn_MA</string>
+                                        <string>lg</string>
+                                        <string>ebu</string>
+                                        <string>en_HK</string>
+                                        <string>nl_NL</string>
+                                        <string>en_BE</string>
+                                        <string>ms_MY</string>
+                                        <string>es_UY</string>
+                                        <string>ar_BH</string>
+                                        <string>kw_GB</string>
+                                        <string>ak</string>
+                                        <string>chr</string>
+                                        <string>dav</string>
+                                        <string>lag_TZ</string>
+                                        <string>am</string>
+                                        <string>so_DJ</string>
+                                        <string>shi_Tfng_MA</string>
+                                        <string>dje</string>
+                                        <string>dyo</string>
+                                        <string>ln</string>
+                                        <string>sr_Latn_ME</string>
+                                        <string>sn_ZW</string>
+                                        <string>or_IN</string>
+                                        <string>ar</string>
+                                        <string>as</string>
+                                        <string>fr_BI</string>
+                                        <string>jmc_TZ</string>
+                                        <string>chr_US</string>
+                                        <string>sbp</string>
+                                        <string>eu_ES</string>
+                                        <string>saq_KE</string>
+                                        <string>vun</string>
+                                        <string>lt</string>
+                                        <string>naq_NA</string>
+                                        <string>ga</string>
+                                        <string>af_NA</string>
+                                        <string>lu</string>
+                                        <string>nmg</string>
+                                        <string>kea_CV</string>
+                                        <string>es_DO</string>
+                                        <string>lv</string>
+                                        <string>kok_IN</string>
+                                        <string>de_LI</string>
+                                        <string>fr_BJ</string>
+                                        <string>az</string>
+                                        <string>guz_KE</string>
+                                        <string>rw_RW</string>
+                                        <string>mg_MG</string>
+                                        <string>km_KH</string>
+                                        <string>pt_ST</string>
+                                        <string>vai_Latn</string>
+                                        <string>gl</string>
+                                        <string>ar_AE</string>
+                                        <string>shi_Tfng</string>
+                                        <string>fr_MQ</string>
+                                        <string>rm</string>
+                                        <string>sv_SE</string>
+                                        <string>rn</string>
+                                        <string>az_Cyrl</string>
+                                        <string>ro</string>
+                                        <string>so_ET</string>
+                                        <string>en_ZA</string>
+                                        <string>ii_CN</string>
+                                        <string>fr_BL</string>
+                                        <string>hi_IN</string>
+                                        <string>agq</string>
+                                        <string>gu</string>
+                                        <string>mer_KE</string>
+                                        <string>nn_NO</string>
+                                        <string>gv</string>
+                                        <string>ru</string>
+                                        <string>yav</string>
+                                        <string>ar_DZ</string>
+                                        <string>ar_SY</string>
+                                        <string>en_MP</string>
+                                        <string>nl_BE</string>
+                                        <string>rw</string>
+                                        <string>be</string>
+                                        <string>dje_NE</string>
+                                        <string>en_VI</string>
+                                        <string>es_CL</string>
+                                        <string>mua</string>
+                                        <string>bg</string>
+                                        <string>mg</string>
+                                        <string>hy_AM</string>
+                                        <string>nus</string>
+                                        <string>zu_ZA</string>
+                                        <string>guz</string>
+                                        <string>ksb</string>
+                                        <string>mk</string>
+                                        <string>es_VE</string>
+                                        <string>ml</string>
+                                        <string>bm</string>
+                                        <string>khq_ML</string>
+                                        <string>bn</string>
+                                        <string>ps_AF</string>
+                                        <string>so_SO</string>
+                                        <string>sr_Cyrl</string>
+                                        <string>pl_PL</string>
+                                        <string>fr_GN</string>
+                                        <string>bo</string>
+                                        <string>om_KE</string>
+                                    </allowedInputSourceLocales>
+                                    <connections>
+                                        <outlet property="delegate" destination="-2" id="yQ7-Qi-cWZ"/>
+                                    </connections>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -121,18 +623,19 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7P3-pp-Sm5">
+                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7P3-pp-Sm5">
                         <rect key="frame" x="127" y="30" width="662" height="210"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="wO7-lP-SJE">
-                            <rect key="frame" x="1" y="17" width="660" height="192"/>
+                            <rect key="frame" x="0.0" y="17" width="662" height="193"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="4sq-M9-rMb" id="QYH-Qo-Boc">
-                                    <rect key="frame" x="0.0" y="0.0" width="660" height="192"/>
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="4sq-M9-rMb" id="QYH-Qo-Boc">
+                                    <rect key="frame" x="0.0" y="0.0" width="662" height="193"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <tableViewGridLines key="gridStyleMask" vertical="YES" horizontal="YES"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
                                         <tableColumn width="116" minWidth="40" maxWidth="1000" id="j0F-aU-6Gm">
@@ -148,7 +651,7 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         </tableColumn>
-                                        <tableColumn width="538" minWidth="40" maxWidth="1000" id="AV8-yJ-uCE">
+                                        <tableColumn width="540" minWidth="40" maxWidth="1000" id="AV8-yJ-uCE">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -174,16 +677,34 @@
                             <rect key="frame" x="-7" y="2" width="0.0" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="37" id="0zW-pM-l7p">
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="0zW-pM-l7p">
                             <rect key="frame" x="-14" y="9" width="15" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="4sq-M9-rMb">
-                            <rect key="frame" x="0.0" y="0.0" width="660" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="662" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="100033" secondAttribute="bottom" constant="5" id="2DA-Hu-2QE"/>
+                    <constraint firstAttribute="trailing" secondItem="100032" secondAttribute="trailing" constant="20" symbolic="YES" id="2c0-6f-rue"/>
+                    <constraint firstItem="Mit-v8-i6l" firstAttribute="trailing" secondItem="7P3-pp-Sm5" secondAttribute="trailing" id="8Bl-Re-cvI"/>
+                    <constraint firstItem="100033" firstAttribute="top" secondItem="7P3-pp-Sm5" secondAttribute="bottom" constant="3" id="HfC-JZ-vrE"/>
+                    <constraint firstItem="100472" firstAttribute="top" secondItem="Mit-v8-i6l" secondAttribute="top" id="Iky-KW-tbD"/>
+                    <constraint firstItem="Mit-v8-i6l" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="127" id="KBX-Ly-IL4"/>
+                    <constraint firstItem="100472" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="LOI-4c-MS8"/>
+                    <constraint firstItem="100472" firstAttribute="top" secondItem="6" secondAttribute="top" constant="1" id="NN1-Pr-Z1V"/>
+                    <constraint firstItem="Mit-v8-i6l" firstAttribute="leading" secondItem="7P3-pp-Sm5" secondAttribute="leading" id="PVW-Mu-bYT"/>
+                    <constraint firstItem="7P3-pp-Sm5" firstAttribute="top" secondItem="6" secondAttribute="top" constant="143" id="WEe-d9-xwK"/>
+                    <constraint firstItem="100472" firstAttribute="centerY" secondItem="6" secondAttribute="centerY" id="ens-Xh-U99"/>
+                    <constraint firstItem="Mit-v8-i6l" firstAttribute="leading" secondItem="100472" secondAttribute="trailing" constant="1" id="mgp-wG-Pzg"/>
+                    <constraint firstItem="100032" firstAttribute="leading" secondItem="100033" secondAttribute="trailing" constant="8" symbolic="YES" id="tQw-OL-Jdg"/>
+                    <constraint firstItem="7P3-pp-Sm5" firstAttribute="top" secondItem="Mit-v8-i6l" secondAttribute="bottom" constant="1" id="ul7-yc-mJZ"/>
+                    <constraint firstAttribute="trailing" secondItem="Mit-v8-i6l" secondAttribute="trailing" constant="-1" id="wKn-ov-g4V"/>
+                    <constraint firstItem="100032" firstAttribute="top" secondItem="100033" secondAttribute="top" id="xKz-IU-rHG"/>
+                </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="B1447A1B-4039-4195-BB36-A601B9A3D8DC" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="E9B-4r-a4T">
                 <allowedToolbarItems>

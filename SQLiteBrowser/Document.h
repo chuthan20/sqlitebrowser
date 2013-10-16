@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Document : NSDocument <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate>
+@interface Document : NSDocument <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextViewDelegate>
 {
     NSMutableArray *recentSearches;
     NSMutableArray *arrayOfData;
