@@ -104,6 +104,7 @@ static int kNumOffset = 100;
 
 - (IBAction)loadBtnClicked:(id)sender
 {
+    NSLog(@"%s" , __PRETTY_FUNCTION__);
     lastTableToBeClicked = @"sqlite_master";
     [self loadAndDisplayTable:lastTableToBeClicked offset:0 limit:kNumOffset];
     [self loadAndDisplayLeftTable];
@@ -167,14 +168,16 @@ static int kNumOffset = 100;
                     [indices addObject:name];
                 }
             }
+            [leftOutline removeAllObjects];
             [leftOutline addObject:tbls];
             [leftOutline addObject:views];
             [leftOutline addObject:indices];
-            
             sqlite3_finalize(statement);
         }
     }
     sqlite3_close(fdb);
+    
+    [_leftOutlineView reloadData];
 }
 
 - (int) getCount:(NSString *)queryString
@@ -370,7 +373,6 @@ static int kNumOffset = 100;
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {
-    NSLog(@"%@", item);
     return (item == nil) ?  @"" : item;
 }
 
