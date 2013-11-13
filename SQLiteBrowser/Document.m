@@ -54,10 +54,13 @@ static int kNumOffset = 100;
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
-    NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
-    @throw exception;
+    NSLog(@"%s (%@)(%@)" , __PRETTY_FUNCTION__, typeName, *outError);
     return nil;
+//    NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
+//    @throw exception;
+//    return nil;
 }
+
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError
 {
     databaseFileName = url.path;
@@ -90,7 +93,6 @@ static int kNumOffset = 100;
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    
     if ([tableView isEqualTo:self.mainTable])
     {
         NSString *strValue = [[arrayOfData objectAtIndex:row] objectForKey:tableColumn.identifier];
@@ -108,7 +110,10 @@ static int kNumOffset = 100;
 }
 
 - (IBAction)executeBtnClicked:(id)sender {
-    NSString *stmt = [[self.stmtQueryField textStorage] string];
+    NSString *original_stmt = [[self.stmtQueryField textStorage] string];
+    NSString *stmt = [original_stmt substringWithRange:[self.stmtQueryField selectedRange]];
+    if (stmt == nil)
+        stmt = original_stmt;
     [recentSearches addObject:stmt];
     [self loadAndDisplayTableWithQuery:stmt];
 }
@@ -125,7 +130,7 @@ static int kNumOffset = 100;
     sqlite3 *fdb;
     NSString *databasePath = databaseFileName;
     
-    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
+//    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
     const char *dbpath = [databasePath UTF8String];
     
     
@@ -133,6 +138,7 @@ static int kNumOffset = 100;
     if (ret == SQLITE_OK)
     {
         NSString *query = @"SELECT tbl_name, type FROM sqlite_master";
+        NSLog(@"%@", query);
         if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
         {
             
@@ -177,7 +183,7 @@ static int kNumOffset = 100;
     sqlite3 *fdb;
     NSString *databasePath = databaseFileName;
     
-    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
+//    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
     
     const char *dbpath = [databasePath UTF8String];
     int numOfRows = -1;
@@ -185,6 +191,7 @@ static int kNumOffset = 100;
     if (ret == SQLITE_OK)
     {
         NSString *qry = [NSString stringWithFormat:@"select count(*) from %@", queryString];
+        NSLog(@"%@", qry);
         if (sqlite3_prepare_v2(fdb, [qry UTF8String], -1, &statement, NULL) == SQLITE_OK)
         {
             while (sqlite3_step(statement) == SQLITE_ROW)
@@ -218,7 +225,7 @@ static int kNumOffset = 100;
     
     NSString *databasePath = databaseFileName;
     
-    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
+//    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
     
     
     const char *dbpath = [databasePath UTF8String];
@@ -282,7 +289,7 @@ static int kNumOffset = 100;
     sqlite3 *fdb;
     NSString *databasePath = databaseFileName;
     
-    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
+//    [[NSFileManager defaultManager] fileExistsAtPath:databasePath] ? NSLog(@"File Exists") : NSLog(@"File DOES NOT Exists");
     
     const char *dbpath = [databasePath UTF8String];
     int ret = sqlite3_open(dbpath, &fdb);
@@ -344,33 +351,26 @@ static int kNumOffset = 100;
 }
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
-    
     if(item == nil)  return leftOutline.count;
     return [[leftOutline objectAtIndex:[sideTableTitles indexOfObject:item]] count];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
-    
     return [sideTableTitles containsObject:item];
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
-    
     if (item == nil)
         return [sideTableTitles objectAtIndex:index];
     else
     {
-        
-        
-        
-        
         return [[leftOutline objectAtIndex:[sideTableTitles indexOfObject:item]] objectAtIndex:index];
     }
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
 {
- NSLog(@"%@", item);
+    NSLog(@"%@", item);
     return (item == nil) ?  @"" : item;
 }
 
@@ -406,7 +406,7 @@ static int kNumOffset = 100;
 
 - (BOOL)textView:(NSTextView *)aTextView doCommandBySelector:(SEL)aSelector
 {
-    
+    NSLog(@"%@" , NSStringFromSelector(_cmd));
     if (aSelector == @selector(insertNewline:))
     {
         [self executeBtnClicked:nil];
@@ -420,5 +420,10 @@ static int kNumOffset = 100;
     return NO;
 }
 
+- (NSArray *)textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
+{
+    NSLog(@"%@" , words);
+    return nil;
+}
 
 @end
