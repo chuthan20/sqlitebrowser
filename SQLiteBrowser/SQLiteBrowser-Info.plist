@@ -10,6 +10,8 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>db</string>
+				<string>sqlite</string>
+				<string>database</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string></string>

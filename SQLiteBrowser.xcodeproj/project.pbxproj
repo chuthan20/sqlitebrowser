@@ -15,6 +15,10 @@
 		2A261BD1163CDBFA00B810E8 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BCF163CDBFA00B810E8 /* Document.xib */; };
 		2A261BD4163CDBFB00B810E8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BD2163CDBFB00B810E8 /* MainMenu.xib */; };
 		2A261BDB163CDC0900B810E8 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */; };
+		2AA5EE9318B05D5C007A6972 /* ic_execute.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AA5EE8F18B05D5C007A6972 /* ic_execute.png */; };
+		2AA5EE9418B05D5C007A6972 /* ic_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AA5EE9018B05D5C007A6972 /* ic_reset.png */; };
+		2AA5EE9518B05D5C007A6972 /* ic_execute.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AA5EE9118B05D5C007A6972 /* ic_execute.png */; };
+		2AA5EE9618B05D5C007A6972 /* ic_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AA5EE9218B05D5C007A6972 /* ic_reset.png */; };
 		2AC4655F180654BE003F5B05 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AC4655E180654BE003F5B05 /* WebKit.framework */; };
 		2AF6EECF178FA29C009A6F10 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */; };
 		F211329C179421A8008633DB /* SQQLViewer.qlgenerator in CopyFiles */ = {isa = PBXBuildFile; fileRef = F275341A178D8C7300981587 /* SQQLViewer.qlgenerator */; };
@@ -64,6 +68,10 @@
 		2A261BD0163CDBFA00B810E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Document.xib; sourceTree = "<group>"; };
 		2A261BD3163CDBFB00B810E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		2AA5EE8F18B05D5C007A6972 /* ic_execute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_execute.png; sourceTree = "<group>"; };
+		2AA5EE9018B05D5C007A6972 /* ic_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_reset.png; sourceTree = "<group>"; };
+		2AA5EE9118B05D5C007A6972 /* ic_execute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_execute.png; path = Assets/ic_execute.png; sourceTree = "<group>"; };
+		2AA5EE9218B05D5C007A6972 /* ic_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_reset.png; path = Assets/ic_reset.png; sourceTree = "<group>"; };
 		2AC4655E180654BE003F5B05 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		F26375541640067E0014AD7B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F2753412178D8C4800981587 /* Untitled.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Untitled.icns; sourceTree = "<group>"; };
@@ -115,6 +123,7 @@
 				F2753412178D8C4800981587 /* Untitled.icns */,
 				2A261BC0163CDBFA00B810E8 /* SQLiteBrowser */,
 				F2753423178D8C7300981587 /* SQQLViewer */,
+				2A97FF461888C2F900C090F3 /* ClassDump */,
 				2A261BB9163CDBFA00B810E8 /* Frameworks */,
 				2A261BB7163CDBFA00B810E8 /* Products */,
 			);
@@ -170,6 +179,9 @@
 		2A261BC1163CDBFA00B810E8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2AA5EE8E18B05D5C007A6972 /* Assets */,
+				2AA5EE9118B05D5C007A6972 /* ic_execute.png */,
+				2AA5EE9218B05D5C007A6972 /* ic_reset.png */,
 				2A261BC2163CDBFA00B810E8 /* SQLiteBrowser-Info.plist */,
 				2A261BC3163CDBFA00B810E8 /* InfoPlist.strings */,
 				2A261BC6163CDBFA00B810E8 /* main.m */,
@@ -177,6 +189,22 @@
 				2A261BC9163CDBFA00B810E8 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2A97FF461888C2F900C090F3 /* ClassDump */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ClassDump;
+			sourceTree = "<group>";
+		};
+		2AA5EE8E18B05D5C007A6972 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				2AA5EE8F18B05D5C007A6972 /* ic_execute.png */,
+				2AA5EE9018B05D5C007A6972 /* ic_reset.png */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		F2753423178D8C7300981587 /* SQQLViewer */ = {
@@ -258,7 +286,7 @@
 		2A261BAD163CDBFA00B810E8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Archuthan Vijayaratnam";
 			};
 			buildConfigurationList = 2A261BB0163CDBFA00B810E8 /* Build configuration list for PBXProject "SQLiteBrowser" */;
@@ -287,8 +315,12 @@
 				2A261BC5163CDBFA00B810E8 /* InfoPlist.strings in Resources */,
 				2A261BCB163CDBFA00B810E8 /* Credits.rtf in Resources */,
 				2A261BD1163CDBFA00B810E8 /* Document.xib in Resources */,
+				2AA5EE9318B05D5C007A6972 /* ic_execute.png in Resources */,
+				2AA5EE9418B05D5C007A6972 /* ic_reset.png in Resources */,
+				2AA5EE9618B05D5C007A6972 /* ic_reset.png in Resources */,
 				2A261BD4163CDBFB00B810E8 /* MainMenu.xib in Resources */,
 				F2753413178D8C4800981587 /* Untitled.icns in Resources */,
+				2AA5EE9518B05D5C007A6972 /* ic_execute.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,7 +432,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -432,7 +463,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -449,6 +479,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LIBRARY_STYLE = BUNDLE;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Release;
