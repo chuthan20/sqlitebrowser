@@ -17,9 +17,9 @@
 		2A261BDB163CDC0900B810E8 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */; };
 		2AA5EE9318B05D5C007A6972 /* ic_execute.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AA5EE8F18B05D5C007A6972 /* ic_execute.png */; };
 		2AA5EE9418B05D5C007A6972 /* ic_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AA5EE9018B05D5C007A6972 /* ic_reset.png */; };
-		2AA5EE9518B05D5C007A6972 /* ic_execute.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AA5EE9118B05D5C007A6972 /* ic_execute.png */; };
-		2AA5EE9618B05D5C007A6972 /* ic_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AA5EE9218B05D5C007A6972 /* ic_reset.png */; };
 		2AC4655F180654BE003F5B05 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AC4655E180654BE003F5B05 /* WebKit.framework */; };
+		2AD1762118B14A36006D7996 /* sqlite_syntax.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AD1762018B14A36006D7996 /* sqlite_syntax.plist */; };
+		2AD1762318B16EFC006D7996 /* ic_console.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AD1762218B16EFC006D7996 /* ic_console.png */; };
 		2AF6EECF178FA29C009A6F10 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */; };
 		F211329C179421A8008633DB /* SQQLViewer.qlgenerator in CopyFiles */ = {isa = PBXBuildFile; fileRef = F275341A178D8C7300981587 /* SQQLViewer.qlgenerator */; };
 		F21132A1179426CF008633DB /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A261BCF163CDBFA00B810E8 /* Document.xib */; };
@@ -70,9 +70,9 @@
 		2A261BDA163CDC0900B810E8 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		2AA5EE8F18B05D5C007A6972 /* ic_execute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_execute.png; sourceTree = "<group>"; };
 		2AA5EE9018B05D5C007A6972 /* ic_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_reset.png; sourceTree = "<group>"; };
-		2AA5EE9118B05D5C007A6972 /* ic_execute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_execute.png; path = Assets/ic_execute.png; sourceTree = "<group>"; };
-		2AA5EE9218B05D5C007A6972 /* ic_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_reset.png; path = Assets/ic_reset.png; sourceTree = "<group>"; };
 		2AC4655E180654BE003F5B05 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		2AD1762018B14A36006D7996 /* sqlite_syntax.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sqlite_syntax.plist; sourceTree = "<group>"; };
+		2AD1762218B16EFC006D7996 /* ic_console.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_console.png; sourceTree = "<group>"; };
 		F26375541640067E0014AD7B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F2753412178D8C4800981587 /* Untitled.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Untitled.icns; sourceTree = "<group>"; };
 		F275341A178D8C7300981587 /* SQQLViewer.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SQQLViewer.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,7 +123,6 @@
 				F2753412178D8C4800981587 /* Untitled.icns */,
 				2A261BC0163CDBFA00B810E8 /* SQLiteBrowser */,
 				F2753423178D8C7300981587 /* SQQLViewer */,
-				2A97FF461888C2F900C090F3 /* ClassDump */,
 				2A261BB9163CDBFA00B810E8 /* Frameworks */,
 				2A261BB7163CDBFA00B810E8 /* Products */,
 			);
@@ -172,6 +171,7 @@
 				2A261BCF163CDBFA00B810E8 /* Document.xib */,
 				2A261BD2163CDBFB00B810E8 /* MainMenu.xib */,
 				2A261BC1163CDBFA00B810E8 /* Supporting Files */,
+				2AD1762018B14A36006D7996 /* sqlite_syntax.plist */,
 			);
 			path = SQLiteBrowser;
 			sourceTree = "<group>";
@@ -180,8 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				2AA5EE8E18B05D5C007A6972 /* Assets */,
-				2AA5EE9118B05D5C007A6972 /* ic_execute.png */,
-				2AA5EE9218B05D5C007A6972 /* ic_reset.png */,
 				2A261BC2163CDBFA00B810E8 /* SQLiteBrowser-Info.plist */,
 				2A261BC3163CDBFA00B810E8 /* InfoPlist.strings */,
 				2A261BC6163CDBFA00B810E8 /* main.m */,
@@ -191,16 +189,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		2A97FF461888C2F900C090F3 /* ClassDump */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ClassDump;
-			sourceTree = "<group>";
-		};
 		2AA5EE8E18B05D5C007A6972 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				2AD1762218B16EFC006D7996 /* ic_console.png */,
 				2AA5EE8F18B05D5C007A6972 /* ic_execute.png */,
 				2AA5EE9018B05D5C007A6972 /* ic_reset.png */,
 			);
@@ -316,11 +308,11 @@
 				2A261BCB163CDBFA00B810E8 /* Credits.rtf in Resources */,
 				2A261BD1163CDBFA00B810E8 /* Document.xib in Resources */,
 				2AA5EE9318B05D5C007A6972 /* ic_execute.png in Resources */,
+				2AD1762318B16EFC006D7996 /* ic_console.png in Resources */,
 				2AA5EE9418B05D5C007A6972 /* ic_reset.png in Resources */,
-				2AA5EE9618B05D5C007A6972 /* ic_reset.png in Resources */,
+				2AD1762118B14A36006D7996 /* sqlite_syntax.plist in Resources */,
 				2A261BD4163CDBFB00B810E8 /* MainMenu.xib in Resources */,
 				F2753413178D8C4800981587 /* Untitled.icns in Resources */,
-				2AA5EE9518B05D5C007A6972 /* ic_execute.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

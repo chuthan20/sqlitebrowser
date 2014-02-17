@@ -26,6 +26,7 @@ static int kNumOffset = 5000;
 	BOOL                        _completePosting;
     BOOL                        _commandHandling;
 }
+@property (unsafe_unretained) IBOutlet NSTextView *console;
 @end
 
 
@@ -50,6 +51,7 @@ static int kNumOffset = 5000;
     
     _sideTableTitles = @[@"Table", @"View", @"Index"] ;
     _mainTable.rowHeight = 22;
+    [_consoleDrawer open];
 }
 
 + (BOOL)autosavesInPlace
@@ -127,6 +129,9 @@ static int kNumOffset = 5000;
 
 - (IBAction)executeBtnClicked:(id)sender
 {
+    if (self.stmtQueryField.string.length == 0)
+        return;
+
     NSRange range = [self.stmtQueryField selectedRange];
     if (range.length > 0)
     {
@@ -136,20 +141,19 @@ static int kNumOffset = 5000;
     {
         NSMutableString *query = [NSMutableString string];
 
-        //assume str is    beg....  x ....end
+        //select the whole line of query (not sqlite syntax aware -- dumb selection)
         NSString *str = [self.stmtQueryField string];
 
-        //copy from from end to x
+        //copy from from end of the line to current position
         for (int i = (int)range.location; i<str.length; i++)
         {
-             NSLog(@"%c", [str characterAtIndex:i]);
             if ([str characterAtIndex:i] == '\n')
                 break;
             else
                 [query appendFormat:@"%c", [str characterAtIndex:i]];
         }
 
-        // copy string from x to beginning
+        // copy string from current position to beginning of the line
         for (int i = (int)range.location-1; i >= 0; i--)
         {
             if ([str characterAtIndex:i] == '\n')
@@ -162,14 +166,6 @@ static int kNumOffset = 5000;
         }
         [self loadAndDisplayTableWithQuery:query];
     }
-
-//    NSString *original_stmt = [[self.stmtQueryField textStorage] string];
-//    NSString *stmt = [original_stmt substringWithRange:[self.stmtQueryField selectedRange]];
-//
-//    if (range.length == 0)
-//        stmt = original_stmt;
-//
-//    [self loadAndDisplayTableWithQuery:stmt];
 }
 
 
@@ -183,6 +179,55 @@ static int kNumOffset = 5000;
     {
         [self loadBtnClicked:nil];
     }
+    else if ([@"console" isEqualToString:[sender.label lowercaseString]])
+    {
+        if (_consoleDrawer.state == NSDrawerClosedState || _consoleDrawer.state == NSDrawerClosingState)
+            [_consoleDrawer open];
+        else
+            [_consoleDrawer close];
+    }
+}
+
+- (void) addQueryToConsole:(NSString *)query
+{
+    [_console.textStorage appendAttributedString:[self syntaxHightlightQuery:query]];
+}
+
+- (void) addErrorMessageToConsole:(NSString *) query
+{
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", query] attributes:@{NSForegroundColorAttributeName:[NSColor redColor]}];
+    [_console.textStorage appendAttributedString: str];
+}
+
+- (NSAttributedString *) syntaxHightlightQuery:(NSString *)query
+{
+    NSArray *keywords = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sqlite_syntax" ofType:@"plist"]];
+
+    NSMutableCharacterSet *cs = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
+//    [cs formUnionWithCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@",()"]];
+    NSArray *arr = [query componentsSeparatedByCharactersInSet:cs];
+
+    NSMutableAttributedString *formattedQuery = [[NSMutableAttributedString alloc] initWithString:@"> "];
+    for (NSString *str in arr)
+    {
+        NSAttributedString *k  = nil;
+        NSString *cword = [str lowercaseString];
+        if ([keywords containsObject:cword])
+        {
+            k = [[NSAttributedString alloc] initWithString:[str uppercaseString] attributes:@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:0.188 green:0.248 blue:0.979 alpha:1.000]}];
+        }
+        else
+        {
+            k = [[NSAttributedString alloc] initWithString:str attributes:@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:0.268 green:0.696 blue:0.761 alpha:1.000]}];
+
+        }
+        [formattedQuery appendAttributedString:k];
+        [formattedQuery appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+    }
+
+    [formattedQuery appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+    return formattedQuery;
+
 }
 
 - (void) loadAndDisplayLeftTable
@@ -191,7 +236,7 @@ static int kNumOffset = 5000;
     if (fdb != NULL)
     {
         NSString *query = @"SELECT tbl_name, type FROM sqlite_master";
-        NSLog(@"%@", query);
+        [self addQueryToConsole:[NSString stringWithFormat:@"%@\n", query]];
 
         sqlite3_stmt    *statement = NULL;
         if (sqlite3_prepare_v2(fdb, [query UTF8String], -1, &statement, NULL) == SQLITE_OK)
@@ -242,6 +287,8 @@ static int kNumOffset = 5000;
     {
         sqlite3_stmt    *statement = NULL;
         NSString *qry = [NSString stringWithFormat:@"select count(*) from %@", queryString];
+        [self addQueryToConsole:[NSString stringWithFormat:@"%@\n", queryString]];
+
         if (sqlite3_prepare_v2(fdb, [qry UTF8String], -1, &statement, NULL) == SQLITE_OK)
         {
             while (sqlite3_step(statement) == SQLITE_ROW)
@@ -252,8 +299,6 @@ static int kNumOffset = 5000;
         }
     }
     sqlite3_close(fdb);
-    NSLog(@"%@ = %d", queryString, numOfRows);
-    
     return numOfRows;
 }
 
@@ -303,7 +348,7 @@ static int kNumOffset = 5000;
     int ret = sqlite3_open(dbpath, &fdb);
     if (ret != SQLITE_OK)
     {
-        NSLog(@"Status = %d, error = %s", ret, sqlite3_errmsg(fdb));
+        [self addErrorMessageToConsole:[NSString stringWithFormat:@"%s\n", sqlite3_errmsg(fdb)]];
         sqlite3_close(fdb);
         fdb = NULL;
     }
@@ -312,7 +357,7 @@ static int kNumOffset = 5000;
 
 - (void) loadAndDisplayTableWithQuery:(NSString *)query
 {
-    NSLog(@"%@", query);
+    [self addQueryToConsole:[NSString stringWithFormat:@"%@\n", query]];
     for (int x= (int)self.mainTable.tableColumns.count-1; x>= 0; x--)
     {
         NSTableColumn *obj = [[self.mainTable tableColumns] objectAtIndex:x];
@@ -335,7 +380,7 @@ static int kNumOffset = 5000;
         }
         else
         {
-            NSLog(@"Status = %d; error = %s", status, sqlite3_errmsg(fdb));
+            [self addErrorMessageToConsole:[NSString stringWithFormat:@"%s\n", sqlite3_errmsg(fdb)]];
         }
     }
     sqlite3_close(fdb);
@@ -375,6 +420,12 @@ static int kNumOffset = 5000;
 {
     return (item == nil) ?  @"" : item;
 }
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
+{
+    return NO;
+}
+
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification
 {

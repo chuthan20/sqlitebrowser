@@ -10,8 +10,6 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>db</string>
-				<string>sqlite</string>
-				<string>database</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string></string>
@@ -23,6 +21,32 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>NSDocumentClass</key>
+			<string>Document</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>NSStringPboardType</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>NSDocumentClass</key>
+			<string>Document</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>NSStringPboardType</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.text</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>Document</string>
 		</dict>

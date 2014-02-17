@@ -10,11 +10,10 @@
 
 @interface Document : NSDocument <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextViewDelegate>
 
-@property (weak) IBOutlet NSView *docView;
-
 @property (strong) IBOutlet NSTextView *stmtQueryField;
 
 @property (weak) IBOutlet NSOutlineView *leftOutlineView;
 @property (weak) IBOutlet NSTableView *mainTable;
+@property (strong) IBOutlet NSDrawer *consoleDrawer;
 
 @end
